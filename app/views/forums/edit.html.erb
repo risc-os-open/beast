@@ -1,0 +1,10 @@
+<div class="crumbs">
+  <%= link_to "Forums", root_path() %> <span class="arrow">&rarr;</span>
+</div>
+
+<h1>Edit Forum</h1>
+
+<%= form_for :forum, url: forum_path(@forum), html: { method: :put } do |f| %>
+  <%= render partial: 'form', object: f %>
+  <%= submit_tag 'Save Changes' %> or <%= link_to('Cancel', forum_path(@forum)) %>
+<% end %>

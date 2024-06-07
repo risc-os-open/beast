@@ -1,0 +1,64 @@
+<% @page_title = @user.display_name %>
+
+<% content_for :right do %>
+  <% if admin? %>
+    <h3>Admin &amp; Moderation</h3>
+
+    <% if @user.forums.any? %>
+	    <p>This user can moderate the following forums. Select one to remove it.</p>
+
+      <% @user.forums.find(:all, :select => 'forums.*, moderatorships.id as moderatorship_id').each do |forum| %>
+        <%
+          form_for(
+            :user,
+            url:  moderator_path(@user, forum.moderatorship_id),
+            html: {
+              method:   :delete,
+              class:    'xdialog',
+              onSubmit: 'return confirm("Are you sure you want to remove the user as a moderator for this forum?");'
+            }
+          ) do |f|
+        %>
+          <%= submit_tag forum.name %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% form_for :user, url: admin_user_path(@user), html: {class: "xdialog"} do |f| %>
+      <p>
+        <label>Add as moderator</label><br />
+        <select name="moderator">
+          <option value="-"></option>
+          <%= options_from_collection_for_select(Forum.where.not(id: @user.forums).order('position ASC').pluck(:id, :name)) %>
+        </select>
+      </p>
+
+      <p><label><%= f.check_box :admin %> User is an administrator</label></p>
+      <p><%= submit_tag 'Save' %></p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<p style="float:right;"><%= avatar_for(@user, 80) %></p>
+
+<h1><%= @user.display_name %></h1>
+
+<p class="subtitle">
+  <%= feed_icon_tag(@user.display_name, user_posts_path(user_id: @user, format: :rss)) %>
+  <span>
+    <%= pluralize(@user.topics.count, 'topic') %>,
+    <%= pluralize(@user.posts_count,  'post' ) %>
+    (view
+      <%= link_to('all',            user_posts_path(@user)) %> |
+      <%= link_to('monitored', monitored_posts_path(@user)) %>
+    posts)
+  </span>
+</p>
+
+<%= @user.bio_html %>
+
+<% unless @user.website.blank? %>
+  <p><strong>Website:</strong> <%= white_list link_to(@user.website.gsub("http://",""), "http://" + @user.website.gsub("http://","")) %>
+<% end %>
+
+<p>User since <%= @user.created_at.to_date.to_formatted_s(:long) %></p>

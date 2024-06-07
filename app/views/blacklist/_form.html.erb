@@ -1,0 +1,15 @@
+<p style="float:right; margin-top:0"></p>
+
+<p id="blacklist_list">
+  <label>Post bodies</label><br />
+  <%= form.text_area :list, cols: 60, rows: 20 %>
+  <br />
+  <span>Enter prohibited post body strings, separated by newlines. String matches are case-insensitive with no wildcards.</span>
+</p>
+
+<p id="blacklist_title_list">
+  <label>Topic titles</label><br />
+  <%= form.text_area :title_list, cols: 60, rows: 10 %>
+  <br />
+  <span>Enter prohibited topic title strings, separated by newlines. String matches are case-insensitive with no wildcards.</span>
+</p>

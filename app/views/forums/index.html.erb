@@ -1,0 +1,103 @@
+<% content_for :right do %>
+  <% if admin? %>
+    <h3>Admin</h3>
+    <ul>
+      <li><%= link_to 'Create New Forum', new_forum_path(), class: 'utility' %></li>
+      <li><%= link_to 'Edit Blacklist', edit_blacklist_path(), class: 'utility' %></li>
+    </ul>
+  <% end %>
+<% end %>
+
+<h1 style="margin-top:0;">Forums</h1>
+
+<p class="subtitle">
+  <%= feed_icon_tag "Recent Posts", all_posts_path(format: 'rss') %>
+  <%= number_with_delimiter(Topic.count) %> topics, <%= number_with_delimiter(Post.count) %> posts,
+  <%= number_with_delimiter(User.where('posts_count > 0').count) %> voices
+</p>
+
+<table border="0" cellspacing="0" cellpadding="0" class="wide forums">
+  <thead>
+    <tr>
+      <th class="la" width="1%">&nbsp;</th>
+      <th class="la" width="70%">Forum</th>
+      <th class="la" width="29%">Last Post</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% for forum in @forums do %>
+      <tr>
+        <td class="vat c1">
+          <% if recent_forum_activity(forum) %>
+            <%= image_tag 'clearbits/comment.gif', class: 'icon green', title: 'Recent activity' %>
+          <% else %>
+            <%= image_tag 'clearbits/comment.gif', class: 'icon grey', title: 'No recent activity' %>
+          <% end %>
+        </td>
+
+        <td class="c2">
+          <%= link_to('Edit', edit_forum_path(forum), class: 'tiny', rel: 'directory', style: 'float: right') if admin? %>
+          <%= link_to(forum.name, forum_path(forum), class: 'title') %>
+
+          <div class="posts">
+            <%= number_with_delimiter(forum.topics_count) %> topics,
+            <%= number_with_delimiter(forum.posts_count) %> posts
+          </div>
+
+          <div class="desc">
+            <%= forum.description_html.html_safe() %>
+          </div>
+        </td>
+
+        <td class="inv lp">
+          <% if forum.posts.last %>
+            <%= time_ago_in_words(forum.posts.last.created_at) %><br />
+            by
+            <strong><%= forum.posts.last.user.display_name %></strong>
+            <span>
+              (<%=
+                link_to(
+                  'view',
+                  forum_topic_path(
+                    forum_id: forum,
+                    id:       forum.posts.last.topic_id,
+                    page:     (forum.posts.last.topic.posts.count / Pagy::DEFAULT[:items]) + 1,
+                    anchor:   forum.posts.last.dom_id
+                  )
+                )
+              %>)
+            </span>
+          <% else %>
+            &ndash;
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to 'Recent main forum posts',  all_posts_path()                           %> |
+  <%= link_to 'Test and Aldershot posts', all_posts_path(tests_and_aldershot: 'yes') %> |
+  <%= link_to 'Everything',               all_posts_path(everything:          'yes') %>
+</p>
+
+<% online_users = User.currently_online %>
+<% unless online_users.empty? %>
+  <div class="stats">
+    <div class="users">
+      <% unless online_users.empty? %>
+        Users online:
+
+        <%=
+          linked_users = online_users.map do | u |
+            tag.strong(link_to(h(u.display_name), user_path(u)))
+          end
+
+          linked_users.join(', ').html_safe()
+        %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

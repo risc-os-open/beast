@@ -1,0 +1,32 @@
+<div class="crumbs">
+  <%= link_to "Forums", root_path() %> <span class="arrow">&rarr;</span>
+</div>
+
+<h1 style="margin-top:0.5em">
+  Blacklist
+</h1>
+
+<h2>Post bodies</h2>
+
+<table>
+  <% @blacklist.list.split( "\n" ).each_with_index do | item, index | %>
+    <tr>
+      <th align="right"><%= index + 1 %></th><td align="left"><%= item.downcase %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+<h2>Topic titles</h2>
+
+<table>
+  <% @blacklist.title_list.split( "\n" ).each_with_index do | item, index | %>
+    <tr>
+      <th align="right"><%= index + 1 %></th><td align="left"><%= item.downcase %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <%= link_to "Edit blacklist", edit_blacklist_path() %>
+</p>

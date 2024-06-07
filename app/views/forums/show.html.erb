@@ -1,0 +1,117 @@
+<% content_for :right do %>
+  <% unless @forum.description.blank? %>
+    <h3>Description</h3>
+    <%= @forum.description_html %>
+  <% end %>
+
+  <% if @forum.moderators.any? %>
+    <h3>Moderators</h3>
+
+    <ul class="flat" style="margin-top:1em;">
+      <% @forum.moderators.each do |user| %>
+        <li><%= link_to user.display_name, user_path(user) %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <h3>Unmoderated</h3>
+
+    <p>This forum is currently unmoderated.</p>
+    <p>Please always be courteous.</p>
+  <% end %>
+<% end %>
+
+<% @page_title = @forum.name %>
+
+<div class="crumbs">
+  <%= link_to "Forums", root_path() %> <span class="arrow">&rarr;</span>
+</div>
+
+<h1 style="margin-top:0.5em">
+  <%= @forum.name %>
+</h1>
+
+<p class="subtitle">
+  <%= feed_icon_tag(@forum.name, forum_posts_path(@forum, format: :rss)) %>
+  <%= pluralize(@forum.topics_count, 'topic') %>, <%= pluralize(@forum.posts_count, 'post') %>
+</p>
+
+<p>
+  <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %> |
+  <%= pagy_nav(@pagy).html_safe() %>
+</p>
+
+<table border="0" cellspacing="0" cellpadding="0" class="wide topics">
+  <tr>
+    <th class="la" colspan="2">Topic</th>
+    <th width="1%">Posts</th>
+    <th width="1%">Views</th>
+    <th class="la">Last post</th>
+  </tr>
+
+  <% for topic in @topics %>
+    <tr class="hentry">
+      <td style="padding:5px; width:16px;" class="c1">
+        <%
+          icon   = 'comment'
+          color  = ''
+          suffix = ''
+
+          if topic.locked?
+            icon   = 'lock'
+            suffix = "; this topic is locked."
+            color  = 'darkgrey'
+          end
+        %>
+        <% if recent_topic_activity(topic) %>
+          <%= image_tag "clearbits/#{icon}.gif", class: "icon green", title: "Recent activity#{suffix}" %>
+        <% else %>
+          <%= image_tag "clearbits/#{icon}.gif", class: "icon grey #{color}", title: "No recent activity#{suffix}" %>
+        <% end %>
+      </td>
+
+      <td class="c2">
+        <%=
+          link = link_to(h(topic.title), forum_topic_path(forum_id: @forum.id, id: topic.id), class: 'entry-title', rel: 'bookmark')
+
+          if topic.sticky?
+            tag.strong(link)
+          else
+            link
+          end
+        %>
+      </td>
+
+      <td class="ca inv stat"><%= topic.posts_count - 1 %></td>
+      <td class="ca inv stat"><%= number_with_delimiter(topic.views) %></td>
+
+      <td class="lp">
+        <abbr class="updated" title="<%= topic.replied_at.xmlschema %>">
+          <%= time_ago_in_words(topic.replied_at) %>
+        </abbr>
+        by
+        <span class="author">
+          <strong class="fn">
+            <%= h(topic.replied_by_user.blank? ? 'Unknown' : topic.replied_by_user.display_name) %>
+          </strong>
+        </span>
+        <span>
+          <%=
+            link_to(
+              forum_topic_path(
+                forum_id: @forum.id,
+                id:       topic.id,
+                page:     (topic.posts.count / Pagy::DEFAULT[:items]) + 1,
+                anchor:   "posts-#{topic.last_post_id}"
+              )
+            )
+          %>
+        </span>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %>
+  <%= pagy_nav(@pagy).html_safe() %>
+</p>
