@@ -24,7 +24,7 @@
       <% end %>
     <% end %>
 
-    <% form_for :user, url: admin_user_path(@user), html: {class: "xdialog"} do |f| %>
+    <%= form_for :user, url: admin_user_path(@user), html: {class: "xdialog"} do |f| %>
       <p>
         <label>Add as moderator</label><br />
         <select name="moderator">

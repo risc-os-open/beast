@@ -130,8 +130,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.attributes = params[:post]
-    @post.save!
+    @post.update!(post_params())
 
   rescue ActiveRecord::RecordInvalid
     flash[:bad_reply] = 'Your edited post was empty, or contained prohibited words'

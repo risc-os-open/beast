@@ -694,7 +694,7 @@ div.template_sidebar_node form.xdialog
 #content div.editbox p { margin:0.5em 0;}
 #content textarea
 {
-  width:100%;
+  width: 100%;
 }
 
 #content div.editbox .button_or a

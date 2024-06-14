@@ -27,6 +27,33 @@ module ApplicationHelper
     end
   end
 
+  # Returns HTML providing a link to Hub's login URL.
+  #
+  # Mandatory positional parameters:
+  #
+  # +text+:: Text that is to be visible in the link (processed via #link_to, so
+  #          if it contains intentional markup be sure to use #html_safe on the
+  #          string, else it'll be auto-escaped).
+  #
+  # Optional named parameters:
+  #
+  # +include_return_url+:: Default +false+. If +true+, a return-to URL is added
+  #                        via query string for Hub to redirect after login,
+  #                        equal to the full current request URL with all query
+  #                        string data included (to preserve e.g. pagination or
+  #                        search data).
+  #
+  def apphelp_hub_login_link(text, include_return_url: false)
+    login_path = "#{ENV['HUB_PATH_PREFIX']}/account/login"
+
+    if include_return_url
+      return_query = URI.encode_www_form({ return_to_url: request.original_url })
+      return link_to(text, "#{login_path}?#{return_query}")
+    else
+      return link_to(text, login_path)
+    end
+  end
+
   def submit_tag(value = "Save Changes", options = {} )
     or_option = options.delete(:or)
     return super + "<span class='button_or'>or " + or_option + "</span>" if or_option

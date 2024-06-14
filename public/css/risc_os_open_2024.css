@@ -98,6 +98,10 @@ input[type="text"], input[type="password"], textarea, select
   padding: 3px;
 }
 
+textarea {
+  font-size: 100%;
+}
+
 input[type="submit"]
 {
   /* border-radius: 6px; */ /* Valid, but the W3C CSS3 validator is buggy and complains - and has since 2006! */
@@ -348,6 +352,36 @@ span.template_navigation_divider
 #template_body
 {
   display: table-cell;
+}
+
+nav.pagy {
+  display: inline-block;
+  margin: 10px 0;
+}
+
+nav.pagy a {
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-right: none;
+  padding: 5px;
+  width: 1em;
+  text-align: center;
+}
+
+nav.pagy a:last-child {
+  border-right: 1px solid #ddd;
+}
+
+nav.pagy a.current {
+  font-weight: bold;
+}
+
+nav.pagy *[aria-disabled="true"] {
+  color: #bbb;
+}
+
+nav.pagy *[aria-disabled="true"]:hover {
+  background: none;
 }
 
 /* Sidebar */

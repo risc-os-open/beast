@@ -47,7 +47,7 @@
             <h3>Search forums</h3>
 
             <p />
-            <% form_tag search_all_posts_path(), method: 'get' do %>
+            <%= form_tag search_all_posts_path(), method: 'get' do %>
               <%= text_field_tag :q, params[:q], size: 15, id: 'search_box' %>
               <input type="submit" name="submit" value="Go" />
             <% end %>
@@ -73,7 +73,7 @@
                 <li class="login"><%= link_to(current_user.display_name, user_path(current_user)) %></li>
                 <li class="logout"><%= link_to('Logout', "#{ENV['HUB_PATH_PREFIX']}/account/logout") %></li>
               <% else %>
-                <li><%= link_to('Login', "#{ENV['HUB_PATH_PREFIX']}/account/login") %></li>
+                <li><%= apphelp_hub_login_link('Login', include_return_url: true) %></li>
               <% end %>
             </ul>
           </div>

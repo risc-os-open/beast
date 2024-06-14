@@ -2,10 +2,10 @@
 <h2><%= link_to(@post.topic.title, forum_topic_path(forum_id: @post.forum_id, id:@post.topic_id)) %></h2>
 
 <%= error_messages_for @topic %>
-<% form_submission_path = post_path(id: @post, forum_id: params[:form_id], topic_id: params[:topic_id]) %>
+<% form_submission_path = forum_topic_post_path(id: @post.id, forum_id: params[:forum_id], topic_id: params[:topic_id]) %>
 
-<% form_for(:post, form_submission_path, html: { method: :put }) do |f| %>
-  <p id="post_body"><%= f.text_area :body %></p>
+<%= form_for(:post, url: form_submission_path, html: { method: :put }) do |f| %>
+  <p id="post_body"><%= f.text_area :body, rows: [(@post.body&.lines&.count || 0), 10].max %></p>
 
   <p align="right">
     <%= apphelp_pagination_fields() %>
@@ -17,7 +17,7 @@
 <%=
   form_for(
     :post,
-    form_submission_path,
+    url: form_submission_path,
     html:
     {
       method:   :delete,
