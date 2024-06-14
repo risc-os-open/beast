@@ -81,15 +81,11 @@ class TopicsController < ApplicationController
       @topic.assign_attributes(self.topic_params().except(:body))
       @topic.save!
 
-binding.b
-
       @post       = Post.new
       @post.user  = current_user
       @post.topic = @topic
       @post.body  = params.dig(:topic, :body)
       @post.save!
-
-binding.b
     end
 
     respond_to do |format|
@@ -109,8 +105,12 @@ binding.b
   def update
     @topic.update!(self.topic_params())
 
+
+    # Note use of @topic.forum_id, not @forum.id - since the owning forum may
+    # have been edited, with the line above updating @topic accordingly.
+    #
     respond_to do |format|
-      format.html { redirect_to(forum_topic_path(forum_id: @forum.id, id: @topic.id)) }
+      format.html { redirect_to(forum_topic_path(forum_id: @topic.forum_id, id: @topic.id)) }
       format.xml  { head(200) }
     end
   end
