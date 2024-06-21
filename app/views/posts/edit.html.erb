@@ -4,31 +4,29 @@
 <%= error_messages_for @topic %>
 <% form_submission_path = forum_topic_post_path(id: @post.id, forum_id: params[:forum_id], topic_id: params[:topic_id]) %>
 
-<%= form_for(:post, url: form_submission_path, html: { method: :put }) do |f| %>
-  <p id="post_body"><%= f.text_area :body, rows: [(@post.body&.lines&.count || 0), 10].max %></p>
+<div>
+  <%= form_for(:post, url: form_submission_path, html: { method: :put }) do |f| %>
+    <p id="post_body"><%= f.text_area :body, rows: [(@post.body&.lines&.count || 0), 10].max %></p>
 
-  <p align="right">
     <%= apphelp_pagination_fields() %>
     <%= submit_tag 'Save' %>,
     <%= link_to 'cancel', forum_topic_path(forum_id: params[:forum_id], id: params[:topic_id], page: params[:page], :items => params[:items]) %>,
-  </p>
-<% end %>
+  <% end %>
 
-<%=
-  form_for(
-    :post,
-    url: form_submission_path,
-    html:
-    {
-      method:   :delete,
-      onSubmit: "return confirm('Are you sure you want to permanently delete this post?');"
-    }
-  ) do |f|
-%>
-  <p align="right">
+  <%=
+    form_for(
+      :post,
+      url: form_submission_path,
+      html:
+      {
+        method:   :delete,
+        onSubmit: "return confirm('Are you sure you want to permanently delete this post?');"
+      }
+    ) do |f|
+  %>
     <%= apphelp_pagination_fields() %>
     or <%= submit_tag('Delete post forever') %>
-  </p>
-<% end %>
+  <% end %>
+</div>
 
 <%= render partial: 'shared/formatting_help' %>

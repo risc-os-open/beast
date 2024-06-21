@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   has_many(
     :forums,
-    -> { order('forms.name ASC') },
+    -> { order('forums.name ASC') },
     through: :moderatorships
   )
 
@@ -45,14 +45,19 @@ class User < ActiveRecord::Base
 
   def self.search(query, options = {})
     scope = self
-    scope = scope.where(build_search_conditions(query)) if query.present?
+    scope = scope.where(build_search_conditions(query))
     scope = scope.where(options.except(:order))
     scope = scope.order(options[:order]) if options.key?(:order)
     scope
   end
 
   def self.build_search_conditions(query)
-    query && ['LOWER(display_name) LIKE :q OR LOWER(login) LIKE :q', {:q => "%#{query}%"}]
+    if query.present?
+      safe_downcase_query = ActiveRecord::Base.sanitize_sql_like(query).downcase()
+      ['LOWER(display_name) LIKE :q OR LOWER(login) LIKE :q', {:q => "%#{safe_downcase_query}%"}]
+    else
+      '1=0'
+    end
   end
 
   def password=(value)

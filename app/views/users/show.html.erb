@@ -29,7 +29,13 @@
         <label>Add as moderator</label><br />
         <select name="moderator">
           <option value="-"></option>
-          <%= options_from_collection_for_select(Forum.where.not(id: @user.forums).order('position ASC').pluck(:id, :name)) %>
+          <%=
+            options_from_collection_for_select(
+              Forum.where.not(id: @user.forums).order('position ASC'),
+              :id,
+              :name
+            )
+          %>
         </select>
       </p>
 

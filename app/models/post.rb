@@ -26,9 +26,9 @@ class Post < ActiveRecord::Base
 
     if last_post.present?
       topic.update!(
-        replied_at:   last.created_at,
-        replied_by:   last.user_id,
-        last_post_id: last.id
+        replied_at:   last_post.created_at,
+        replied_by:   last_post.user_id,
+        last_post_id: last_post.id
       )
     end
   end

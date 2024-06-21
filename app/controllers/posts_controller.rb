@@ -37,8 +37,9 @@ class PostsController < ApplicationController
     # conditions = params[:q].blank? ? nil : Post.send(:sanitize_sql, ['LOWER(posts.body) LIKE ?', "%#{params[:q].downcase}%"])
     # @post_pages, @posts = paginate(:posts, @@query_options.merge(:conditions => conditions).merge(per_page()))
     #
-    scope = Post.joins(:topic, :forum).order(created_at: :asc)
-    scope = scope.where('LOWER(posts.body) LIKE ?', params[:q].downcase) if params[:q].present?
+    safe_q = ActiveRecord::Base.sanitize_sql_like(params[:q]) if params[:q].present?
+    scope  = Post.joins(:topic, :forum).order(created_at: :desc)
+    scope  = scope.where('LOWER(posts.body) LIKE ?', "%#{safe_q.downcase}%") if safe_q.present?
 
     @pagy, @posts = pagy(scope)
 
@@ -58,7 +59,7 @@ class PostsController < ApplicationController
     #
     scope = Post
       .joins(:forum, :topic => :monitorships)
-      .order(created_at: :asc)
+      .order(created_at: :desc)
       .where(user_id: @user.id, topic: { monitorships: { user_id: @user.id } })
 
     @pagy, @posts = pagy(scope)

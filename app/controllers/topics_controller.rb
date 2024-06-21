@@ -94,17 +94,11 @@ class TopicsController < ApplicationController
     end
 
   rescue ActiveRecord::RecordInvalid
-    flash[:error] = "Your topic's first post was empty, or contained prohibited words"
-
-    respond_to do |format|
-      format.html { redirect_to(forum_path(@forum)) }
-      format.xml  { render(xml: @post.errors.to_xml, status: 400) }
-    end
+    assume_prohibited_words_used()
   end
 
   def update
     @topic.update!(self.topic_params())
-
 
     # Note use of @topic.forum_id, not @forum.id - since the owning forum may
     # have been edited, with the line above updating @topic accordingly.
@@ -113,6 +107,9 @@ class TopicsController < ApplicationController
       format.html { redirect_to(forum_topic_path(forum_id: @topic.forum_id, id: @topic.id)) }
       format.xml  { head(200) }
     end
+
+  rescue ActiveRecord::RecordInvalid
+    assume_prohibited_words_used()
   end
 
   def destroy
@@ -141,16 +138,16 @@ class TopicsController < ApplicationController
         permitted << :body
       end
 
-      if admin?
-        if current_user.moderator_of?(@topic.forum)
-          permitted << :sticky
-          permitted << :locked
-        end
-
-        unless @topic.new_record?
-          permitted << :forum_id
-        end
+      # Admins or moderators can set the 'sticky' or 'locked' flags.
+      #
+      if admin? || current_user.moderator_of?(@topic.forum)
+        permitted << :sticky
+        permitted << :locked
       end
+
+      # Only admins can move a topic (during edits, not creation).
+      #
+      permitted << :forum_id if admin? && ! @topic.new_record?
 
       params.require(:topic).permit(*permitted)
     end
@@ -162,5 +159,17 @@ class TopicsController < ApplicationController
 
     def authorized?
       %w(new create).include?(action_name) || @topic.editable_by?(current_user)
+    end
+
+    # Rescue ActiveRecord::RecordInvalid and call here to render a warning
+    # about prohibited words being used while redirecting to the @forum view.
+    #
+    def assume_prohibited_words_used
+      flash[:error] = "Your topic's first post was empty, or contained prohibited words"
+
+      respond_to do |format|
+        format.html { redirect_to(forum_path(@forum)) }
+        format.xml  { render(xml: @post.errors.to_xml, status: 400) }
+      end
     end
 end

@@ -24,8 +24,8 @@ Rails.application.routes.draw do
   #
   get '/forums/:forum_id/topics/:topic_id/monitorships/destroy', to: 'monitorships#destroy'
 
-  resources :posts, as: 'all_posts'
   get '/posts/search', as: :search_all_posts, to: 'posts#search'
+  resources :posts, as: 'all_posts'
 
   get '/signup',        as: :signup,   to: 'users#new'
   get '/settings',      as: :settings, to: 'users#edit'

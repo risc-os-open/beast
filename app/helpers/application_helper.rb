@@ -43,11 +43,17 @@ module ApplicationHelper
   #                        string data included (to preserve e.g. pagination or
   #                        search data).
   #
-  def apphelp_hub_login_link(text, include_return_url: false)
+  # +return_fragment+::    Optional fragment ("#foo") excluding the "#", to add
+  #                        to a return URL if +include_return_url+ is +true+.
+  #
+  def apphelp_hub_login_link(text, include_return_url: false, return_fragment: nil)
     login_path = "#{ENV['HUB_PATH_PREFIX']}/account/login"
 
     if include_return_url
-      return_query = URI.encode_www_form({ return_to_url: request.original_url })
+      original_url          = URI.parse(request.original_url)
+      original_url.fragment = return_fragment unless return_fragment.nil?
+      return_query          = URI.encode_www_form({ return_to_url: original_url.to_s })
+
       return link_to(text, "#{login_path}?#{return_query}")
     else
       return link_to(text, login_path)

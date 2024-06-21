@@ -65,8 +65,8 @@ class Topic < ActiveRecord::Base
     end
 
     def title_cannot_contain_blacklisted_strings
-      downcase_title = title.downcase rescue ''
-      blacklist      = Blacklist.find(:first).title_list rescue ''
+      downcase_title = title&.downcase             || ''
+      blacklist      = Blacklist.first&.title_list || ''
       prohibited     = false
 
       blacklist.split("\n").each do |item|

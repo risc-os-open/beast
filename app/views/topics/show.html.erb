@@ -18,7 +18,13 @@
 <% end %>
 
 <% if logged_in? %>
-  <%= form_tag(forum_topic_monitorships_path(forum_id: @forum.id, topic_id: @topic.id) + (@monitoring ? '/destroy' : ''), style: 'margin-top: 0em; float: right;') do %>
+  <%
+    form_submission_path  = forum_topic_monitorships_path(forum_id: @forum.id, topic_id: @topic.id)
+    form_submission_path << '/destroy' if @monitoring
+
+    form_method = @monitoring ? 'delete' : 'post'
+  %>
+  <%= form_tag(form_submission_path, method: form_method, style: 'margin-top: 0em; float: right;') do %>
     <div>
       <input id="monitor_checkbox" type="checkbox" <%= "checked='checked'" if @monitoring %> />
       <label id="monitor_label" for="monitor_checkbox">Watch<%= "ing" if @monitoring %> topic</label>
@@ -156,6 +162,12 @@
 
         <%= render partial: 'shared/formatting_help' %>
       <% end %>
+
+      <script type="text/javascript">
+        if (window.location.hash == '#edit') { // (from after-log-in redirection)
+          window.setTimeout(function() { document.getElementById('post_body').focus(); }, 0);
+        }
+      </script>
     </div>
   <% end %>
 <% else %>
@@ -163,7 +175,7 @@
   <h3>Reply</h3>
 
   <p />
-  To post replies, please first <%= apphelp_hub_login_link('log in', include_return_url: true) %>.
+  To post replies, please first <%= apphelp_hub_login_link('log in', include_return_url: true, return_fragment: 'edit') %>.
 <% end %>
 
 <div class="crumbs" style="margin-top: 1.1em;">

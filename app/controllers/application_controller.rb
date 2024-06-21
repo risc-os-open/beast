@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
   before_action :hubssolib_beforehand
   after_action  :hubssolib_afterwards
 
-  # # Rescue all exceptions (bad form) to rotate the Hub key (good) and raise
-  # # the exception again (so not bad form, after all).
-  # #
-  # rescue_from ::Exception, with: :on_error_rotate_and_raise
+  # Rescue all exceptions (bad form) to rotate the Hub key (good) and render or
+  # raise the exception again (rapid reload for default handling).
+  #
+  rescue_from ::Exception, with: :on_error_rotate_and_raise
 
   # Beast's usual preamble.
   #
@@ -31,13 +31,23 @@ class ApplicationController < ActionController::Base
 
   private
 
-    # TODO: Does not work as expected yet.
+    # Renders an exception, retaining Hub login. Regenerate any exception
+    # within five seconds of a previous render to 'raise' to default Rails
+    # error handling, which (in non-Production modes) gives additional
+    # debugging context and an inline console, but loses the Hub session
+    # rotated key, so you're logged out.
     #
-    def on_error_rotate_and_raise
-      hubssolib_set_last_used(Time.now.utc)
+    def on_error_rotate_and_raise(exception)
+      hubssolib_get_session_proxy()
       hubssolib_afterwards()
 
-      raise
+      if session[:last_exception_at].present?
+        last_at = Time.parse(session[:last_exception_at]) rescue nil
+        raise if last_at.present? && Time.now - last_at < 5.seconds
+      end
+
+      session[:last_exception_at] = Time.now.iso8601(1)
+      render 'exception', locals: { exception: exception }
     end
 
 end

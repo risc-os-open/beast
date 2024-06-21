@@ -14,7 +14,7 @@ class MonitorshipsController < ApplicationController
   end
 
   def create
-    @monitorship = Monitorship.find_or_initialize_by_user_id_and_topic_id(current_user.id, params[:topic_id])
+    @monitorship = Monitorship.find_or_initialize_by(user_id: current_user.id, topic_id: params[:topic_id])
     @monitorship.active = true
     @monitorship.save!
 
