@@ -23,7 +23,44 @@ end
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port ENV.fetch("PORT") { 3000 }
+# Must use custom env var PUMA_PORT, as if the Puma-known PORT is used, for some
+# reason it ignores the "bind" below and latches onto 127.0.0.1 only, so the server
+# is not visible outside localhost (if that is required, e.g. by binding to 0.0.0.0).
+#
+base_port = (ENV.fetch("PUMA_PORT") { 3000 }).to_i
+bind "tcp://127.0.0.1:#{base_port}"
+
+# Enable SSL on "ENV[PORT] + 1" or 443. For 443, you must run via `sudo`, e.g.:
+#
+#   sudo USE_SUDO_SSL=true bundle exec rails server
+#
+# ...which is obviously a security risk, so only use it for short periods. This
+# is needed for the mobile app & the Apple App Site Association file used for
+# universal links, as non-standard ports are prohibited by that system.
+#
+# If using SSL on another port, then the traditional arrangement of normal HTTP
+# on the configured port and SSL one port higher is used - by default, 3000 and
+# 3001.
+#
+ssl_port = if ENV['USE_SSL'].present?
+  base_port + 1
+elsif ENV['USE_SUDO_SSL'].present?
+  443
+else
+  nil
+end
+
+unless ssl_port.nil?
+  ssl_bind(
+    '0.0.0.0',
+    ssl_port,
+    {
+      key:         Rails.root.join('config', 'developer_certificates', 'epsilon.privkey.pem'),
+      cert:        Rails.root.join('config', 'developer_certificates', 'epsilon.fullchain.pem'),
+      verify_mode: 'none'
+    }
+  )
+end
 
 # Specifies the `environment` that Puma will run in.
 environment ENV.fetch("RAILS_ENV") { "development" }
