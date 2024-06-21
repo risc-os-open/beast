@@ -1,7 +1,7 @@
 <% content_for :right do %>
   <% unless @forum.description.blank? %>
     <h3>Description</h3>
-    <%= @forum.description_html %>
+    <%= @forum.description_html.html_safe() %>
   <% end %>
 
   <% if @forum.moderators.any? %>
