@@ -4,7 +4,7 @@
 # row, which contains a text field of newline separated items processed
 # by Ruby when checking a post. Not efficient but sufficient for now.
 #
-class Blacklist < ActiveRecord::Base
+class Blacklist < ApplicationRecord
 
   before_save :downcase_and_strip
 

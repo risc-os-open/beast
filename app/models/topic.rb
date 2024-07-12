@@ -1,4 +1,4 @@
-class Topic < ActiveRecord::Base
+class Topic < ApplicationRecord
   belongs_to :forum, counter_cache: true
   belongs_to :user
   has_many :monitorships

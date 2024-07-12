@@ -1,4 +1,4 @@
-class Moderatorship < ActiveRecord::Base
+class Moderatorship < ApplicationRecord
   belongs_to :forum
   belongs_to :user
 

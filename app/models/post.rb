@@ -1,4 +1,4 @@
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   include WhiteListFormattedContentConcern
 
   belongs_to :forum, counter_cache: true

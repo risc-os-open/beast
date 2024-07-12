@@ -1,4 +1,4 @@
-class Forum < ActiveRecord::Base
+class Forum < ApplicationRecord
   include WhiteListFormattedContentConcern
 
   acts_as_list()
