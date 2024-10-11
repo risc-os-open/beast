@@ -38,6 +38,6 @@ class Forum < ApplicationRecord
   #
   has_many(
     :posts,
-    -> { order('posts.created_at desc') }
+    -> { order('posts.created_at asc') }
   )
 end

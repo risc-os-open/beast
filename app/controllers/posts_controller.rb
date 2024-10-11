@@ -236,7 +236,7 @@ class PostsController < ApplicationController
 
       options[:anchor] = anchor unless (anchor.nil?)
       options[:page  ] = (params[:page ] ||                   '1').to_i.to_s if (params.key?(:page ))
-      options[:items ] = (params[:items] || Pagy::DEFAULT[:items]).to_i.to_s if (params.key?(:items))
+      options[:limit ] = (params[:limit] || Pagy::DEFAULT[:limit]).to_i.to_s if (params.key?(:limit))
 
       forum_topic_path(options)
     end

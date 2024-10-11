@@ -62,7 +62,7 @@
                   forum_topic_path(
                     forum_id: forum,
                     id:       forum.posts.last.topic_id,
-                    page:     (forum.posts.last.topic.posts.count / Pagy::DEFAULT[:items]) + 1,
+                    page:     (forum.posts.last.topic.posts.count / Pagy::DEFAULT[:limit]) + 1,
                     anchor:   forum.posts.last.dom_id
                   )
                 )

@@ -10,7 +10,7 @@
 
     <%= apphelp_pagination_fields() %>
     <%= submit_tag 'Save' %>,
-    <%= link_to 'cancel', forum_topic_path(forum_id: params[:forum_id], id: params[:topic_id], page: params[:page], :items => params[:items]) %>,
+    <%= link_to 'cancel', forum_topic_path(forum_id: params[:forum_id], id: params[:topic_id], page: params[:page], :limit => params[:limit]) %>,
   <% end %>
 
   <%=

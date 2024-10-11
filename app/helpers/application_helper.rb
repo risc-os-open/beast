@@ -116,7 +116,7 @@ module ApplicationHelper
 
   def apphelp_pagination_fields
     "#{hidden_field_tag(:page,  params[:page ]) if params[:page ].present?}".html_safe() <<
-    "#{hidden_field_tag(:items, params[:items]) if params[:items].present?}".html_safe()
+    "#{hidden_field_tag(:limit, params[:limit]) if params[:limit].present?}".html_safe()
   end
 
   # https://gist.github.com/mattyoho/1113828
