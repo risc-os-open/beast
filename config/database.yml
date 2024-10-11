@@ -11,12 +11,12 @@ dbinfo: &dbinfo
 
 development:
   <<: *dbinfo
-  database: hub-devel
+  database: beast-devel
 
 test:
   <<: *dbinfo
-  database: hub-test
+  database: beast-test
 
 production:
   <<: *dbinfo
-  database: hub
+  database: beast
