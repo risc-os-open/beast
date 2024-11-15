@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_17_031049) do
+ActiveRecord::Schema[7.2].define(version: 2024_05_17_031049) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "blacklists", force: :cascade do |t|
     t.text "list", default: ""
     t.text "title_list", default: ""
@@ -75,7 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_17_031049) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "hits", default: 0
-    t.integer "sticky", default: 0
+    t.boolean "sticky", default: false
     t.integer "posts_count", default: 0
     t.datetime "replied_at"
     t.boolean "locked", default: false
@@ -104,5 +107,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_17_031049) do
     t.text "bio_html"
     t.index ["last_seen_at"], name: "index_users_on_last_seen_at"
   end
-
 end
