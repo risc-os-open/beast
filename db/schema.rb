@@ -14,73 +14,73 @@ ActiveRecord::Schema[7.2].define(version: 2024_05_17_031049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "blacklists", force: :cascade do |t|
+  create_table "blacklists", id: :serial, force: :cascade do |t|
     t.text "list", default: ""
     t.text "title_list", default: ""
   end
 
-  create_table "forums", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
+  create_table "forums", id: :serial, force: :cascade do |t|
+    t.text "name"
+    t.text "description"
     t.integer "topics_count", default: 0
     t.integer "posts_count", default: 0
     t.integer "position"
     t.text "description_html"
   end
 
-  create_table "logged_exceptions", force: :cascade do |t|
-    t.string "exception_class"
-    t.string "controller_name"
-    t.string "action_name"
-    t.string "message"
+  create_table "logged_exceptions", id: :serial, force: :cascade do |t|
+    t.string "exception_class", limit: 255
+    t.string "controller_name", limit: 255
+    t.string "action_name", limit: 255
+    t.text "message"
     t.text "backtrace"
     t.text "environment"
     t.text "request"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
   end
 
-  create_table "moderatorships", force: :cascade do |t|
+  create_table "moderatorships", id: :serial, force: :cascade do |t|
     t.integer "forum_id"
     t.integer "user_id"
     t.index ["forum_id"], name: "index_moderatorships_on_forum_id"
   end
 
-  create_table "monitorships", force: :cascade do |t|
+  create_table "monitorships", id: :serial, force: :cascade do |t|
     t.integer "topic_id"
     t.integer "user_id"
     t.boolean "active", default: true
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "posts", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "topic_id"
     t.text "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "forum_id"
     t.text "body_html"
     t.index ["forum_id", "created_at"], name: "index_posts_on_forum_id"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id"
   end
 
-  create_table "sessions", force: :cascade do |t|
-    t.string "session_id"
+  create_table "sessions", id: :serial, force: :cascade do |t|
+    t.string "session_id", limit: 255
     t.text "data"
-    t.datetime "updated_at"
+    t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.index ["session_id"], name: "index_sessions_on_session_id"
   end
 
-  create_table "topics", force: :cascade do |t|
+  create_table "topics", id: :serial, force: :cascade do |t|
     t.integer "forum_id"
     t.integer "user_id"
-    t.string "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text "title"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "hits", default: 0
-    t.boolean "sticky", default: false
     t.integer "posts_count", default: 0
-    t.datetime "replied_at"
+    t.datetime "replied_at", precision: nil
+    t.integer "sticky", default: 0
     t.boolean "locked", default: false
     t.integer "replied_by"
     t.integer "last_post_id"
@@ -88,22 +88,22 @@ ActiveRecord::Schema[7.2].define(version: 2024_05_17_031049) do
     t.index ["forum_id"], name: "index_topics_on_forum_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "login"
-    t.string "email"
-    t.string "password_hash"
-    t.datetime "created_at"
-    t.datetime "last_login_at"
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.text "login"
+    t.text "email"
+    t.text "password_hash"
+    t.datetime "created_at", precision: nil
+    t.datetime "last_login_at", precision: nil
     t.boolean "admin"
     t.integer "posts_count", default: 0
-    t.datetime "last_seen_at"
-    t.string "display_name"
-    t.datetime "updated_at"
-    t.string "website"
-    t.string "login_key"
-    t.datetime "login_key_expires_at"
+    t.datetime "last_seen_at", precision: nil
+    t.text "display_name"
+    t.datetime "updated_at", precision: nil
+    t.text "website"
+    t.text "login_key"
+    t.datetime "login_key_expires_at", precision: nil
     t.boolean "activated", default: false
-    t.string "bio"
+    t.text "bio"
     t.text "bio_html"
     t.index ["last_seen_at"], name: "index_users_on_last_seen_at"
   end
