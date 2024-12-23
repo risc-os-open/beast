@@ -67,4 +67,4 @@
   <p><strong>Website:</strong> <%= white_list link_to(@user.website.gsub("http://",""), "http://" + @user.website.gsub("http://","")) %>
 <% end %>
 
-<p>User since <%= @user.created_at.to_date.to_formatted_s(:long) %></p>
+<p>User since <%= @user.created_at.in_time_zone('Europe/London').to_date.to_formatted_s(:long) %></p>

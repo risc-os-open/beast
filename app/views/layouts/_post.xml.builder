@@ -4,5 +4,5 @@ xm.item do
   xm.pubDate     post.created_at.rfc822
   xm.guid        [request.host_with_port, post.forum_id.to_s, post.topic_id.to_s, post.id.to_s].join(':'), isPermaLink: 'false'
   xm.author      h(post.user.display_name)
-  xm.link        topic_url(post.forum_id, post.topic_id)
+  xm.link        forum_topic_url(post.forum_id, post.topic_id)
 end

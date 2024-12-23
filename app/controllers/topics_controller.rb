@@ -65,8 +65,8 @@ class TopicsController < ApplicationController
       end
 
       format.rss do
-        @posts = @topic.posts.order(created_at: :desc).limit(50)
-        render(action: 'show.xml.erb', layout: false)
+        @posts = @topic.posts.reorder(created_at: :desc).limit(50)
+        render(formats: :xml)
       end
     end
   end
@@ -90,7 +90,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(forum_topic_path(forum_id: @forum.id, id: @topic.id)) }
-      format.xml  { head(:created, location: topic_url(id: @topic.id, forum_id: @forum, format: :xml)) }
+      format.xml  { head(:created, location: forum_topic_url(id: @topic.id, forum_id: @forum, format: :xml)) }
     end
 
   rescue ActiveRecord::RecordInvalid

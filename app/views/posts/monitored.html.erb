@@ -30,11 +30,7 @@
       <td class="author vcard">
         <div class="date">
           <abbr class="updated" title="<%= post.created_at.xmlschema %>">
-            <% if post.created_at > Time.now.utc - 24.hours %>
-              <%= time_ago_in_words(post.created_at).sub(/about /, '') %> ago
-            <% else %>
-              <%= post.created_at.strftime('%b %e, %Y') %>
-            <% end %>
+            <%= apphelp_creation_time_in_london(post) %>
           </abbr>
         </div>
 

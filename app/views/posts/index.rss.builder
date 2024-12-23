@@ -11,10 +11,10 @@ xml.rss "version" => "2.0",
     xml.tag! "atom:link", :rel => 'search', :type => 'application/opensearchdescription+xml', :href => "http://#{request.host_with_port}/open_search.xml"
     unless params[:q].blank?
       xml.tag! "opensearch:totalResults", @pagy.count
-      xml.tag! "opensearch:startIndex", (@pagy.page - 1) * @pagy.limit)
+      xml.tag! "opensearch:startIndex", (@pagy.page - 1) * @pagy.limit
       xml.tag! "opensearch:itemsPerPage", @pagy.limit
-      xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:q], :startPage => @pagy.page)
+      xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:q], :startPage => @pagy.page
     end
-    render :partial => "layouts/post", :collection => @posts, :locals => {:xm => xml}
+    render :partial => "layouts/post", :formats => :xml, :collection => @posts, :locals => {:xm => xml}
   end
 end

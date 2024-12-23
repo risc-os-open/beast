@@ -26,6 +26,8 @@ gem 'hubssolib', '~> 2.0', require: 'hub_sso_lib'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem 'bcrypt', '~> 3.1.7'
 
+# For Windows or esoteric Unix/Linux-like distributions.
+#
 gem 'tzinfo-data'
 
 # Reduces boot times through caching; required in config/boot.rb

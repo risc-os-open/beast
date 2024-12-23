@@ -1,4 +1,7 @@
-<% @page_title = search_posts_title %>
+<%
+  @page_title  = search_posts_title
+  missing_user = User.new(id: 0, email: 'webmaster@riscoosopen.org', display_name: 'Unknown')
+%>
 
 <h1>
   <% if params[:q].blank? %>
@@ -17,6 +20,8 @@
 
 <table border="0" cellspacing="0" cellpadding="0" class="posts wide">
   <% @posts.each do | post | %>
+    <% user = post.user || missing_user %>
+
     <% unless post == @posts.first %>
       <tr class="spacer">
         <td colspan="2">&nbsp;</td>
@@ -27,26 +32,28 @@
       <td class="author vcard">
         <div class="date">
           <abbr class="updated" title="<%= post.created_at.xmlschema %>">
-            <% if post.created_at > Time.now.utc - 24.hours %>
-              <%= time_ago_in_words(post.created_at).sub(/about /, '') %>
-            <% else %>
-              <%= post.created_at.strftime("%b %e, %Y") %>
-            <% end %>
+            <%= apphelp_creation_time_in_london(post) %>
           </abbr>
         </div>
 
-        <%= avatar_for @users[post.user_id] %>
+        <%= avatar_for(user) %>
 
         <span class="fn">
           <%=
-            link_to(
-              @users[post.user_id].display_name,
-              user_path(post.user_id),
-              class: (@users[post.user_id] == @users[@posts.first.user_id]) ? 'admin' : nil
-            )
+            if user.id.zero?
+              user.display_name
+            else
+              link_to(
+                user.display_name,
+                user_path(user),
+                class: (user.id == @posts.first.user_id) ? 'admin' : nil
+              )
+            end
           %>
         </span>
-        <span class="posts"><%= pluralize(@users[post.user_id].posts_count, 'post') %></span>
+        <span class="posts">
+          <%= pluralize(user.posts_count, 'post') unless user.id.zero? %>
+        </span>
       </td>
 
       <td class="body entry-content">

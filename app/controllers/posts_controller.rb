@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   #
   def index_rss
     index_initialise
-    render action: 'index.xml.erb', layout: false
+    render action: 'index', layout: false
   end
 
   def search
@@ -41,11 +41,7 @@ class PostsController < ApplicationController
     scope  = Post.joins(:topic, :forum).order(created_at: :desc)
     scope  = scope.where('LOWER(posts.body) LIKE ?', "%#{safe_q.downcase}%") if safe_q.present?
 
-    @pagy, @posts = pagy(scope)
-
-    # @users = User.find(:all, :select => 'distinct *', :conditions => ['id in (?)', @posts.collect(&:user_id).uniq]).index_by(&:id)
-    #
-    @users = User.distinct.where(id: @posts.pluck(:user_id)).index_by(&:id)
+    @pagy, @posts = pagy(scope.includes(:user))
 
     render_posts_or_xml :index
   end
@@ -177,10 +173,6 @@ class PostsController < ApplicationController
     end
 
     def index_initialise
-      # conditions = []
-      # [:user_id, :forum_id].each { |attr| conditions << Post.send(:sanitize_sql, ["posts.#{attr} = ?", params[attr]]) if params[attr] }
-      # conditions = conditions.any? ? conditions.collect { |c| "(#{c})" }.join(' AND ') : nil
-      #
       scope          = Post.all
       scope_adjusted = false
 
@@ -199,11 +191,9 @@ class PostsController < ApplicationController
         end
       end
 
-      @pagy, @posts = pagy(scope)
+      scope = scope.order(created_at: :desc)
 
-      # @users = User.find(:all, :select => 'distinct *', :conditions => ['id in (?)', @posts.collect(&:user_id).uniq]).index_by(&:id)
-      #
-      @users = User.distinct.where(id: @posts.pluck(:user_id)).index_by(&:id)
+      @pagy, @posts = pagy(scope.includes(:user))
     end
 
     def authorized?
@@ -223,7 +213,7 @@ class PostsController < ApplicationController
     def render_posts_or_xml(template_name = action_name)
       respond_to do |format|
         format.html { render action: template_name }
-        format.rss  { render action: "#{template_name}.xml.erb", layout: false }
+        format.rss  { render format: :xml }
         format.xml  { render xml: @posts.to_xml }
       end
     end

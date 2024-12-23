@@ -47,7 +47,13 @@ class ApplicationController < ActionController::Base
       end
 
       session[:last_exception_at] = Time.now.iso8601(1)
-      render 'exception', locals: { exception: exception }
+      locals                      = { exception: exception }
+
+      respond_to do | format |
+        format.html { render 'exception', locals: locals }
+        format.xml  { render 'exception', locals: locals }
+        format.rss  { render 'exception', locals: locals, formats: :xml }
+      end
     end
 
 end

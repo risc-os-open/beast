@@ -60,6 +60,23 @@ module ApplicationHelper
     end
   end
 
+  # Return a created-at timestamp indication that uses "time ago in words" for
+  # the last 24h, else use a consistent date-time format. Processing time zone
+  # is coerced to "Europe/London".
+  #
+  # +entity+:: An object which responds to #created_at with a Time or other
+  #            Time-comparable object, such as ActiveSupport::TimeWithZone.
+  #
+  def apphelp_creation_time_in_london(entity)
+    Time.use_zone('Europe/London') do
+      if entity.created_at > Time.now.utc - 24.hours
+        return time_ago_in_words(entity.created_at).sub(/about /, '')
+      else
+        return entity.created_at.strftime("%b %e, %Y - %H:%M")
+      end
+    end
+  end
+
   def submit_tag(value = "Save Changes", options = {} )
     or_option = options.delete(:or)
     return super + "<span class='button_or'>or " + or_option + "</span>" if or_option
