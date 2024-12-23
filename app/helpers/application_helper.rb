@@ -104,7 +104,7 @@ module ApplicationHelper
     title = if params[:q].blank?
       'Recent Posts'
     else
-      "Searching for '#{h params[:q]}'"
+      "Searching for '#{h params[:q]}'".html_safe()
     end
 
     title << " by #{h User.find(params[:user_id]).display_name}" if params[:user_id ].present?
