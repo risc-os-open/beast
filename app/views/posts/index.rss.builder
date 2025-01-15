@@ -1,4 +1,4 @@
-xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
+xml.instruct! :xml, version: '1.0', encoding: "UTF-8"
 
 xml.rss "version" => "2.0",
   'xmlns:opensearch' => "http://a9.com/-/spec/opensearch/1.1/",

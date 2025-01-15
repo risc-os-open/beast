@@ -31,6 +31,8 @@ class ApplicationController < ActionController::Base
 
   private
 
+    XML_LIKE = [:xml, :rss]
+
     # Renders an exception, retaining Hub login. Regenerate any exception
     # within five seconds of a previous render to 'raise' to default Rails
     # error handling, which (in non-Production modes) gives additional
@@ -50,9 +52,9 @@ class ApplicationController < ActionController::Base
       locals                      = { exception: exception }
 
       respond_to do | format |
-        format.html { render 'exception', locals: locals }
-        format.xml  { render 'exception', locals: locals }
-        format.rss  { render 'exception', locals: locals, formats: :xml }
+        format.html           { render 'exception', locals: locals }
+        format.json           { render 'exception', locals: locals, formats: :json }
+        format.any(*XML_LIKE) { render 'exception', locals: locals, formats: :xml }
       end
     end
 
