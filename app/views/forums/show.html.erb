@@ -35,10 +35,11 @@
   <%= pluralize(@forum.topics_count, 'topic') %>, <%= pluralize(@forum.posts_count, 'post') %>
 </p>
 
-<p>
-  <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %> |
+<div class="simple_flex_row space_after">
   <%= pagy_nav(@pagy).html_safe() %>
-</p>
+  &nbsp;&nbsp;
+  <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %>
+</div>
 
 <table border="0" cellspacing="0" cellpadding="0" class="wide topics">
   <tr>
@@ -112,7 +113,8 @@
   <% end %>
 </table>
 
-<p>
-  <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %>
+<div class="simple_flex_row space_after">
   <%= pagy_nav(@pagy).html_safe() %>
-</p>
+  &nbsp;&nbsp;
+  <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %>
+</div>
