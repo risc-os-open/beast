@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '3.3.5'
-
 gem 'rails', '~> 7'
 
 # Use PostgreSQL
@@ -10,7 +8,7 @@ gem 'pg', '~> 1.5.8'
 
 # Use the Puma web server [https://github.com/puma/puma]
 #
-gem "puma", '>= 5.0'
+gem "puma", '~> 5.0'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 #
@@ -18,7 +16,7 @@ gem 'sprockets-rails', :require => 'sprockets/railtie'
 
 # Use Hub for authentication [https://github.com/pond/hubssolib]
 #
-gem 'hubssolib', '~> 2.0', require: 'hub_sso_lib'
+gem 'hubssolib', '~> 2.1', require: 'hub_sso_lib'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem 'kredis'
