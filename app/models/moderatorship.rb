@@ -7,7 +7,7 @@ class Moderatorship < ApplicationRecord
   # TODO: record for this forum and user should exist"!
   #
   before_create do |r|
-    if Monitorship.where(user_id: r.user_id, forum_id: r.forum_id).any?
+    if Moderatorship.where(user_id: r.user_id, forum_id: r.forum_id).any?
       throw :abort
     end
   end

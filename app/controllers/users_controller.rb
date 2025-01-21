@@ -107,19 +107,25 @@ class UsersController < ApplicationController
 #       format.xml  { head(200) }
 #     end
 #   end
-#
-#   def admin
-#     respond_to do |format|
-#       format.html do
-#         @user.admin = params[:user][:admin] == '1'
-#         @user.save!
-#         @user.forums << Forum.find(params[:moderator]) unless params[:moderator].blank? || params[:moderator] == '-'
-#
-#         redirect_to user_path(@user)
-#       end
-#     end
-#   end
-#
+
+  # While ModeratorsController handles moderation removal, a different form
+  # is used to add moderated forms and toggle the "admin" setting - and that
+  # form submits to this method.
+  #
+  def admin
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html do
+        @user.admin = params[:user][:admin] == '1'
+        @user.save!
+        @user.forums << Forum.find(params[:moderator]) unless params[:moderator].blank? || params[:moderator] == '-'
+
+        redirect_to user_path(@user)
+      end
+    end
+  end
+
 #   def destroy
 #     @user.destroy!
 #

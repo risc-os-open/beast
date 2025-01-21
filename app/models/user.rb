@@ -1,18 +1,17 @@
 require 'digest/sha1'
 
 class User < ApplicationRecord
-  has_many :moderatorships, dependent: :destroy
+  has_many :posts
+  has_many :topics
 
+  has_many :moderatorships, dependent: :destroy
   has_many(
     :forums,
     -> { order('forums.name ASC') },
     through: :moderatorships
   )
 
-  has_many :posts
-  has_many :topics
   has_many :monitorships
-
   has_many(
     :monitored_topics,
     -> { joins(:monitorships).where(monitorships: { active: true }).order('topics.replied_at DESC') },

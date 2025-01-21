@@ -7,11 +7,12 @@
     <% if @user.forums.any? %>
 	    <p>This user can moderate the following forums. Select one to remove it.</p>
 
-      <% @user.forums.find(:all, :select => 'forums.*, moderatorships.id as moderatorship_id').each do |forum| %>
-        <%
+      <% @user.moderatorships.includes(:forum).each do |moderatorship| %>
+        <% forum = moderatorship.forum %>
+        <%=
           form_for(
             :user,
-            url:  moderator_path(@user, forum.moderatorship_id),
+            url:  user_moderator_path(@user, moderatorship.id),
             html: {
               method:   :delete,
               class:    'xdialog',
