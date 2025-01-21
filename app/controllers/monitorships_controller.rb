@@ -20,7 +20,6 @@ class MonitorshipsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to forum_topic_path(forum_id: params[:forum_id], id: params[:topic_id]) }
-      format.js
     end
   end
 
@@ -39,7 +38,6 @@ class MonitorshipsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to forum_topic_path(forum_id: params[:forum_id], id: params[:topic_id]) }
-      format.js
     end
   end
 end

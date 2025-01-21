@@ -10,19 +10,13 @@ gem 'pg', '~> 1.5'
 #
 gem "puma", '~> 6.0'
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+# Simple asset management [https://github.com/rails/propshaft]
 #
-gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'propshaft', '~> 1.1'
 
 # Use Hub for authentication [https://github.com/pond/hubssolib]
 #
 gem 'hubssolib', '~> 2.1', require: 'hub_sso_lib'
-
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem 'kredis'
-
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem 'bcrypt', '~> 3.1.7'
 
 # For Windows or esoteric Unix/Linux-like distributions.
 #
