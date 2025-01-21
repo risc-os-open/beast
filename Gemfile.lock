@@ -112,7 +112,8 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.0)
-    irb (1.14.3)
+    irb (1.15.0)
+      pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     logger (1.6.5)
@@ -152,6 +153,9 @@ GEM
       racc (~> 1.4)
     pagy (9.3.3)
     pg (1.5.9)
+    pp (0.6.2)
+      prettyprint
+    prettyprint (0.2.0)
     psych (5.2.3)
       date
       stringio
@@ -268,7 +272,7 @@ DEPENDENCIES
   html-pipeline (~> 3.2)
   hubssolib (~> 2.1)
   pagy (~> 9.0)
-  pg (~> 1.5.8)
+  pg (~> 1.5)
   puma (~> 6.0)
   rails (~> 8)
   rails_autolink (~> 1.1)
