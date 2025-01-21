@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7'
+gem 'rails', '~> 8'
 
 # Use PostgreSQL
 #
@@ -8,7 +8,7 @@ gem 'pg', '~> 1.5.8'
 
 # Use the Puma web server [https://github.com/puma/puma]
 #
-gem "puma", '~> 5.0'
+gem "puma", '~> 6.0'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 #
