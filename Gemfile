@@ -8,7 +8,7 @@ gem 'pg', '~> 1.5'
 
 # Use the Puma web server [https://github.com/puma/puma]
 #
-gem "puma", '~> 6.0'
+gem 'puma', '~> 6.0'
 
 # Simple asset management [https://github.com/rails/propshaft]
 #
