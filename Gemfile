@@ -14,10 +14,6 @@ gem 'puma', '~> 6.0'
 #
 gem 'propshaft', '~> 1.1'
 
-# Use Hub for authentication [https://github.com/pond/hubssolib]
-#
-gem 'hubssolib', '~> 2.1', require: 'hub_sso_lib'
-
 # For Windows or esoteric Unix/Linux-like distributions.
 #
 gem 'tzinfo-data'
@@ -26,9 +22,13 @@ gem 'tzinfo-data'
 #
 gem 'bootsnap', require: false
 
+# Use Hub for authentication [https://github.com/pond/hubssolib]
+#
+gem 'hubssolib', '~> 2.1', require: 'hub_sso_lib'
+
 # Easy pagination [https://rubygems.org/gems/pagy]
 #
-gem 'pagy', '~> 9.0'
+gem 'pagy', '~> 9.3'
 
 # Textile support [https://rubygems.org/gems/RedCloth]
 #
