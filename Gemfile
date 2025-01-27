@@ -18,10 +18,6 @@ gem 'propshaft', '~> 1.1'
 #
 gem 'tzinfo-data'
 
-# Reduces boot times through caching; required in config/boot.rb
-#
-gem 'bootsnap', require: false
-
 # Use Hub for authentication [https://github.com/pond/hubssolib]
 #
 gem 'hubssolib', '~> 2.1', require: 'hub_sso_lib'
@@ -46,17 +42,29 @@ gem 'rails_autolink', '~> 1.1'
 #
 gem 'acts_as_list', '~> 1.2'
 
-# Monitoring and alerting [http://rubygems.org/gems/newrelic_rpm]
+# # Monitoring and alerting [http://rubygems.org/gems/newrelic_rpm]
+# #
+# gem 'newrelic_rpm'
+
+# Monitoring and alerting [http://sentry.io]
 #
-gem 'newrelic_rpm'
+# * https://rubygems.org/gems/stackprof
+# * https://rubygems.org/gems/sentry-ruby
+# * https://rubygems.org/gems/sentry-rails
+#
+gem 'stackprof'
+gem 'sentry-ruby'
+gem 'sentry-rails'
 
 group :development, :test do
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  #
   gem 'debug', platforms: %i[ mri windows ]
+
 end
 
 group :development do
-  gem 'error_highlight', '>= 0.4.0', platforms: [:ruby]
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   #
@@ -69,10 +77,14 @@ group :development do
   # E-mail inspection.
   #
   gem 'mailcatcher'
+
 end
 
 group :test do
+
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  #
   gem 'capybara'
   gem 'selenium-webdriver'
+
 end
