@@ -28,24 +28,6 @@ common: &default_settings
   # Logging level for log/newrelic_agent.log
   log_level: info
 
-  capture_params: true
-  attributes:
-    include: request.parameters.*
-    exclude:
-    - request.parameters.passw
-    - request.parameters.password
-    - request.parameters.password_configuration
-    - request.parameters.secret
-    - request.parameters.token
-    - request.parameters._key
-    - request.parameters.crypt
-    - request.parameters.salt
-    - request.parameters.certificate
-    - request.parameters.otp
-    - request.parameters.ssn
-    - request.parameters.cvv
-    - request.parameters.cvc
-
   application_logging:
     # If `true`, all logging-related features for the agent can be enabled or disabled
     # independently. If `false`, all logging-related features are disabled.
