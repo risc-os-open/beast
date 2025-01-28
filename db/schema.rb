@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_05_17_031049) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_28_012524) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "blacklists", id: :serial, force: :cascade do |t|
     t.text "list", default: ""
@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_05_17_031049) do
     t.datetime "updated_at", precision: nil
     t.integer "forum_id"
     t.text "body_html"
+    t.index ["created_at"], name: "index_posts_on_created_at", order: :desc
     t.index ["forum_id", "created_at"], name: "index_posts_on_forum_id"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id"
   end
@@ -84,8 +85,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_05_17_031049) do
     t.boolean "locked", default: false
     t.integer "replied_by"
     t.integer "last_post_id"
-    t.index ["forum_id", "sticky", "replied_at"], name: "index_topics_on_sticky_and_replied_at"
+    t.index ["forum_id", "sticky", "replied_at"], name: "index_topics_on_forum_id_and_sticky_and_replied_at"
     t.index ["forum_id"], name: "index_topics_on_forum_id"
+    t.index ["sticky", "replied_at"], name: "index_topics_on_sticky_and_replied_at", order: { sticky: :desc }
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

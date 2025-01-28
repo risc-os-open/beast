@@ -20,8 +20,13 @@ class ForumsController < ApplicationController
     scope = Forum.all.order(position: :asc)
     @pagy, @forums = pagy(scope)
 
+    # Reducing the potential row scope to 'most_recent_posts_in_topics' via
+    # subquery dramatically increases overall execution speed.
+    #
+    most_recent_posts_in_topics = Topic.select(:last_post_id)
     @most_recent_posts_per_forum = Post
       .select('DISTINCT ON (forum_id) *')
+      .where(id: most_recent_posts_in_topics)
       .order(:forum_id, created_at: :desc)
       .to_a
       .inject({}) { |hash, post| hash[post.forum_id] = post; hash }
