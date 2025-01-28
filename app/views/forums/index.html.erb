@@ -51,19 +51,19 @@
         </td>
 
         <td class="inv lp">
-          <% if forum.posts.last %>
-            <%= time_ago_in_words(forum.posts.last.created_at) %><br />
+          <% if @most_recent_posts_per_forum.key?(forum.id) %>
+            <% post = @most_recent_posts_per_forum[forum.id] %>
+            <%= time_ago_in_words(post.created_at) %><br />
             by
-            <strong><%= forum.posts.last.user.display_name %></strong>
+            <strong><%= post.user.display_name %></strong>
             <span>
               (<%=
                 link_to(
                   'view',
                   forum_topic_path(
-                    forum_id: forum,
-                    id:       forum.posts.last.topic_id,
-                    page:     (forum.posts.last.topic.posts.count / Pagy::DEFAULT[:limit]) + 1,
-                    anchor:   forum.posts.last.dom_id
+                    forum_id:     forum,
+                    id:           post.topic_id,
+                    jump_to_post: post.id
                   )
                 )
               %>)

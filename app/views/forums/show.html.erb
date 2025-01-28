@@ -100,10 +100,9 @@
             link_to(
               'view',
               forum_topic_path(
-                forum_id: @forum.id,
-                id:       topic.id,
-                page:     (topic.posts.count / Pagy::DEFAULT[:limit]) + 1,
-                anchor:   "posts-#{topic.last_post_id}"
+                forum_id:     @forum.id,
+                id:           topic.id,
+                jump_to_post: topic.last_post_id
               )
             )
           %>

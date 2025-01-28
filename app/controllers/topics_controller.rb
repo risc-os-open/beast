@@ -54,6 +54,22 @@ class TopicsController < ApplicationController
           .where(topic_id: params[:id])
           .order(created_at: :asc)
 
+        jump_to_post_id = params.delete(:jump_to_post)
+        jump_to_post    = @topic.posts.find_by_id(jump_to_post_id) if jump_to_post_id.present?
+
+        if jump_to_post.present?
+          posts_in_topic_count = scope.count
+          page_number_arising  = (posts_in_topic_count / Pagy::DEFAULT[:limit].to_f).ceil
+          post_anchor          = jump_to_post.dom_id
+
+          redirect_to(
+            page:   page_number_arising,
+            anchor: post_anchor
+          )
+
+          return # NOTE EARLY EXIT
+        end
+
         @pagy, @posts = pagy(scope)
 
         @voices = User.distinct.where(id: @posts.select(:user_id))

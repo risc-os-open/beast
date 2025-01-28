@@ -20,6 +20,12 @@ class ForumsController < ApplicationController
     scope = Forum.all.order(position: :asc)
     @pagy, @forums = pagy(scope)
 
+    @most_recent_posts_per_forum = Post
+      .select('DISTINCT ON (forum_id) *')
+      .order(:forum_id, created_at: :desc)
+      .to_a
+      .inject({}) { |hash, post| hash[post.forum_id] = post; hash }
+
     respond_to do |format|
       format.html
       format.xml { render :xml => forums.to_xml }
