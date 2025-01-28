@@ -20,7 +20,7 @@ gem 'tzinfo-data'
 
 # Use Hub for authentication [https://github.com/pond/hubssolib]
 #
-gem 'hubssolib', '~> 2.1', require: 'hub_sso_lib'
+gem 'hubssolib', '~> 3.0', require: 'hub_sso_lib'
 
 # Easy pagination [https://rubygems.org/gems/pagy]
 #
@@ -42,19 +42,19 @@ gem 'rails_autolink', '~> 1.1'
 #
 gem 'acts_as_list', '~> 1.2'
 
-# Monitoring and alerting [http://rubygems.org/gems/newrelic_rpm]
-#
-gem 'newrelic_rpm'
+# # Monitoring and alerting [http://rubygems.org/gems/newrelic_rpm]
+# #
+# gem 'newrelic_rpm'
 
-# # Monitoring and alerting [http://sentry.io]
-# #
-# # * https://rubygems.org/gems/stackprof
-# # * https://rubygems.org/gems/sentry-ruby
-# # * https://rubygems.org/gems/sentry-rails
-# #
-# gem 'stackprof'
-# gem 'sentry-ruby'
-# gem 'sentry-rails'
+# Monitoring and alerting [http://sentry.io]
+#
+# * https://rubygems.org/gems/stackprof
+# * https://rubygems.org/gems/sentry-ruby
+# * https://rubygems.org/gems/sentry-rails
+#
+gem 'stackprof'
+gem 'sentry-ruby'
+gem 'sentry-rails'
 
 group :development, :test do
 
