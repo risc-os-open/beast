@@ -8,7 +8,6 @@ xml.rss "version" => "2.0",
     xml.link "http://#{request.host_with_port}#{search_posts_path}"
     xml.language "en-us"
     xml.ttl "60"
-    xml.tag! "atom:link", :rel => 'search', :type => 'application/opensearchdescription+xml', :href => "http://#{request.host_with_port}/open_search.xml"
     unless params[:q].blank?
       xml.tag! "opensearch:totalResults", @pagy.count
       xml.tag! "opensearch:startIndex", (@pagy.page - 1) * @pagy.limit

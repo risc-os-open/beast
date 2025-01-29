@@ -8,7 +8,6 @@ xml.rss "version" => "2.0",
     xml.link forum_topic_url(@forum, @topic)
     xml.language "en-us"
     xml.ttl "60"
-    xml.tag! "atom:link", :rel => 'search', :type => 'application/opensearchdescription+xml', :href => "http://#{request.host_with_port}/open_search.xml"
     xml.description @topic.posts.reorder(created_at: :asc).first&.body || @topic.title
 
     render :partial => "layouts/post", :formats => :xml, :collection => @posts, :locals => {:xm => xml}
