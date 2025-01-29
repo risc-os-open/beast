@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root 'forums#index'
 
-  resources :sessions
-
   resources :users do
     resources :posts
     resources :moderators
@@ -30,8 +28,6 @@ Rails.application.routes.draw do
   get '/signup',        as: :signup,   to: 'users#new'
   get '/settings',      as: :settings, to: 'users#edit'
   get '/activate/:key', as: :activate, to: 'users#activate'
-  get '/login',         as: :login,    to: 'sessions#new'
-  get '/logout',        as: :logout,   to: 'sessions#destroy'
 
   get '/users/:user_id/monitored', as: :monitored_posts, to: 'posts#monitored'
 

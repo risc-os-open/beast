@@ -3,18 +3,24 @@
   @monitoring = logged_in? && Monitorship.where(user_id: current_user, topic_id: @topic, active: true).any?
 %>
 
-<% content_for :right do %>
-  <% unless @forum.description.blank? %>
+<% unless @forum.description.blank? %>
+  <% content_for :right do %>
     <h3>Description</h3>
+
     <%= @forum.description_html.html_safe() %>
   <% end %>
+<% end %>
 
-  <h3>Voices</h3>
-  <ul class="flat talking">
-    <% @voices.each do | user | %>
-      <li><%= link_to(user.display_name, user_path(user)) %></li>
-    <% end %>
-  </ul>
+<% unless @voices.empty? %>
+  <% content_for :right_additional do %>
+    <h3>Voices</h3>
+
+    <ul class="flat talking">
+      <% @voices.each do | user | %>
+        <li><%= link_to(user.display_name, user_path(user)) %></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
 
 <% if logged_in? %>
@@ -55,7 +61,6 @@
             url:  forum_topic_path(forum_id: @forum.id, id: @topic.id),
             html: {
               method:   :delete,
-              class:    'xdialog',
               style:    'display: inline',
               onSubmit: 'return confirm("Delete this topic forever?");'
             }

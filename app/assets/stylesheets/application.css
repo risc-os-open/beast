@@ -5,12 +5,6 @@
 
 @import url("https://www.riscosopen.org/css/risc_os_open_2025.css");
 
-div.template_sidebar_node p {font-size:80%;}
-div.template_sidebar_node form.xdialog
-{
-  white-space: normal;
-}
-
 #content form {margin-bottom:0;}
 
 #content p.subtle

@@ -1,6 +1,7 @@
 <% content_for :right do %>
   <% if admin? %>
     <h3>Admin</h3>
+
     <ul>
       <li><%= link_to 'Create New Forum', new_forum_path(), class: 'utility' %></li>
       <li><%= link_to 'Edit Blacklist', edit_blacklist_path(), class: 'utility' %></li>

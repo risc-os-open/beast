@@ -1,8 +1,7 @@
 <% content_for :right do %>
-  <h5>Find a User</h5>
+  <h3>Find a User</h3>
 
   <%= form_tag nil, method: :get do %>
-    <p>
     <label>Display name or login</label>
     <%= text_field_tag :q, params[:q] %>
     <%= submit_tag 'Search' %></p>

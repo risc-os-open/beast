@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_012524) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_28_205454) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,14 +62,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_012524) do
     t.index ["created_at"], name: "index_posts_on_created_at", order: :desc
     t.index ["forum_id", "created_at"], name: "index_posts_on_forum_id"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id"
-  end
-
-  create_table "sessions", id: :serial, force: :cascade do |t|
-    t.string "session_id", limit: 255
-    t.text "data"
-    t.datetime "updated_at", precision: nil
-    t.integer "user_id"
-    t.index ["session_id"], name: "index_sessions_on_session_id"
   end
 
   create_table "topics", id: :serial, force: :cascade do |t|

@@ -46,7 +46,6 @@
           <div class="template_sidebar_node" id="search">
             <h3>Search forums</h3>
 
-            <p />
             <%= form_tag search_all_posts_path(), method: 'get' do %>
               <%= text_field_tag :q, params[:q], size: 15, id: 'search_box' %>
               <input type="submit" name="submit" value="Go" />
@@ -55,12 +54,18 @@
 
           <%= render 'shared/fixed_sidebar' %>
 
-          <p />
-          <div class="template_sidebar_node">
-            <%= content_for :right %>
-          </div>
+          <% if content_for? :right %>
+            <div class="template_sidebar_node">
+              <%= content_for :right %>
+            </div>
+          <% end %>
 
-          <p />
+          <% if content_for? :right_additional %>
+            <div class="template_sidebar_node">
+              <%= content_for :right_additional %>
+            </div>
+          <% end %>
+
           <div class="template_sidebar_node">
             <h3>Options</h3>
 
