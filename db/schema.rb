@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_205454) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_04_023901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,12 +43,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_205454) do
     t.integer "forum_id"
     t.integer "user_id"
     t.index ["forum_id"], name: "index_moderatorships_on_forum_id"
+    t.index ["user_id"], name: "index_moderatorships_on_user_id"
   end
 
   create_table "monitorships", id: :serial, force: :cascade do |t|
     t.integer "topic_id"
     t.integer "user_id"
     t.boolean "active", default: true
+    t.index ["topic_id"], name: "index_monitorships_on_topic_id"
+    t.index ["user_id"], name: "index_monitorships_on_user_id"
   end
 
   create_table "posts", id: :serial, force: :cascade do |t|
@@ -61,7 +64,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_205454) do
     t.text "body_html"
     t.index ["created_at"], name: "index_posts_on_created_at", order: :desc
     t.index ["forum_id", "created_at"], name: "index_posts_on_forum_id"
-    t.index ["user_id", "created_at"], name: "index_posts_on_user_id"
+    t.index ["topic_id"], name: "index_posts_on_topic_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "topics", id: :serial, force: :cascade do |t|
@@ -80,6 +84,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_205454) do
     t.index ["forum_id", "sticky", "replied_at"], name: "index_topics_on_forum_id_and_sticky_and_replied_at"
     t.index ["forum_id"], name: "index_topics_on_forum_id"
     t.index ["sticky", "replied_at"], name: "index_topics_on_sticky_and_replied_at", order: { sticky: :desc }
+    t.index ["user_id"], name: "index_topics_on_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
