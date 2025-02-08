@@ -77,6 +77,27 @@ module ApplicationHelper
     end
   end
 
+  # A somewhat expensive method that assumes Hub unique name semantics with the
+  # Hub user ID in brackets after the name and returns a span with the full ID
+  # in an 'title' attribute, but the name without that text (via #gsub and
+  # Regexp, hence the expense).
+  #
+  # Passing a #blank? String will result in bare text 'Unknown' being returned.
+  #
+  def apphelp_linked_name(user)
+    user_hub_display_name = user&.display_name
+
+    if user_hub_display_name.blank?
+      'Unknown'
+    else
+      link_to(
+        user_hub_display_name.gsub(/\(\d+\)$/, ''),
+        user_path(user),
+        title: user_hub_display_name
+      )
+    end
+  end
+
   def submit_tag(value = "Save Changes", options = {} )
     or_option = options.delete(:or)
     return super + "<span class='button_or'>or " + or_option + "</span>" if or_option

@@ -85,7 +85,7 @@
 
 #content h1 { margin-bottom: 20px; font-size: 2em; }
 #content h1 img { vertical-align:middle; }
-#content h1 span { font-size:0.7em; color:#999; font-weight:normal; padding-left: 1em;}
+#content h1 span { font-size:70%; color:#999; font-weight:normal; padding-left: 10px;}
 
 #content h2 { font-size:1.0em; }
 
@@ -217,7 +217,6 @@
   width:100%;
 }
 
-#content p.private,
 #content .legend
 {
   margin-top:0;
@@ -228,18 +227,6 @@
 #content .legend span
 {
   margin-right:5em;
-}
-
-#content p.private img { vertical-align:bottom;}
-#content p.private
-{
-  /* xcolor:white; */
-  color:#c00;
-  font-weight:bold;
-}
-#content p.psmall {
-  font-size:0.7em;
-  font-weight:normal;
 }
 
 #content div.upload
@@ -327,7 +314,11 @@
 #content span.fn
 {
   display:block;
-  margin-left:44px;
+}
+
+#content div.edit
+{
+  margin-top: 10px;
 }
 
 #content .smallutils
@@ -344,6 +335,26 @@
 }
 
 #content .smallutils a:hover {color:#369;}
+
+#content #topic_mod
+{
+  margin-left: 20px;
+  font-size: 0.75em;
+}
+
+/* NetSurf assistance */
+
+/* Fix strange extra top margin and missing bottom margin */
+.simple_flex_row.netsurf
+{
+  border: 1px solid transparent;
+}
+
+/* Work around failure to apply "justify-content: space-between" in the row */
+.forum_stats.netsurf
+{
+  margin-left: 20px;
+}
 
 /* tables */
 
@@ -363,28 +374,16 @@
 {
   border-collapse:collapse;
 }
+
 #content table tr th
 {
   background:#ddd;
 }
-#content table tr th,
-#content table tr td
-{
-  padding: 5px;
-}
 
-#content table.topics tr th,
-#content table.topics tr td,
 #content table.forums tr th,
 #content table.forums tr td
 {
   border: 1px solid #ddd;
-}
-
-#content table.topics tr td,
-#content table.forums tr td
-{
-  padding: 7px;
 }
 
 /* topics */
@@ -397,9 +396,6 @@
 
 /* specific table styles */
 
-#content table.forums,
-#content table.topics { font-size: 0.8em; }
-#content table.forums tr th { font-size: 1em; }
 #content table.forums tr td .title
 {
   font-size:1.4em;
@@ -407,29 +403,27 @@
 
 #content table.forums tr td .desc
 {
-  margin:0.5em 0;
+  margin: 0.5 0 0 0;
 }
 
-#content table.forums tr td
+#content table.forums tr td .desc p:last-child
 {
-  padding:4px 15px;
+  margin-bottom: 0;
 }
 
-#content table.forums a.tiny
+#content table.forums tr td,
+#content table.forums tr th:last-child
 {
-  font-size:0.8em;
-  color:#666;
+  padding: 4px 10px;
 }
 
 #content table.forums .posts
 {
-  color:#666;
-  font-size:0.8em;
+  color:#777;
 }
 
 #content table tr th.la  { text-align:left;    }
 #content table tr td.ca  { text-align:center;  }
-#content table tr td.inv { background:#fbfbfb; }
 #content table tr td.vat { vertical-align:top; }
 
 #content table tr td.narrow { padding:2px 5px;}
@@ -442,16 +436,12 @@
   color:#333;
   text-align: right;
 }
-#content table tr td.lp span { color:#666; }
+
+#content table tr td.lp span   { color:#666; }
 #content table tr td.lp span a { color:#369; }
 
-#content table.topics tr td.c1
- {  border-right:0; padding-right:2px; }
-#content table.topics tr td.c2
- {  border-left:0; padding-left:2px; }
-
-#content table.forums tr td.c1 { border-right:0; padding-right:5px; padding-top:7px; }
-#content table.forums tr td.c2 { border-left:0; padding-left:5px; }
+#content table.forums tr td.c1 { border-right: 0; padding: 11px 10px 0   10px; }
+#content table.forums tr td.c2 { border-left:  0; padding:  7px 10px 9px 0;    }
 
 #content table.topics tr td.c2 small a { color:#666; }
 #content table.topics tr td.stat { font-size:0.9em; }
@@ -523,7 +513,8 @@
 
 #content table.posts tr.spacer td
 {
-  font-size:1px;
+  font-size: 1px;
+  height: 5px;
 }
 
 #content table.posts table
@@ -542,20 +533,20 @@
 
 #content .post .author img
 {
-  float:left;
-  margin-right:0.5em;
+  float: left;
+  margin: 3px 10px 5px 0;
 }
 
 #content .post .author
 {
   border-top:2px solid #eee;
-  padding:5px 10px;
+  padding:8px 10px;
   background:#eee;
   font-weight:bold;
   color:#333;
-  font-size:0.9em;
+  font-size: 100%;
   min-height:32px;
-  width:10em;
+  width:20% !important;
   min-width:8em;
   vertical-align:top;
 }
@@ -580,47 +571,10 @@
   font-weight: bold
 }
 
-
-
-/* 2011-03-18 (ADH): Effective CSS hack which stops PRE content reaching
- * unbounded widths, but allows the columns in the table to use all available
- * horizontal space. The maximum width table cell values stop the browser
- * formatting a very wide column if a wide <pre> tag is present. Then the PRE
- * tag itself is limited to full column width. If we just try to limit the PRE
- * tag by max-width percentage, for some reason browsers do shrink it, but
- * still format the containing column as if the PRE were at maximum width -
- * this odd behaviour is consistent across several rendering engines.
- *
- * The maximum widths on the table cells stop this strange behaviour, but of
- * course they get ignored, because the wider <table> constraint of 100% width
- * causes the table to get stretched with the viewpoint.
- */
-
-#content table.posts
+#content .posts .post .body pre
 {
-  width: 100%;
+  white-space: pre-wrap;
 }
-
-#content .post td.author
-{
-  width: 25%;
-  max-width: 200px;
-}
-
-#content .post td.body
-{
-  width: 75%;
-  max-width: 600px;
-  overflow-x: auto;
-}
-
-#content .post td.body pre
-{
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-
 
 #content .post .date
 {
@@ -644,7 +598,6 @@
 #content .posts .post .body
 {
   border-top:2px solid #eee;
-  font-size:0.9em;
   padding: 0 0 0 10px;
 }
 

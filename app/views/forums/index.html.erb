@@ -9,27 +9,21 @@
   <% end %>
 <% end %>
 
-<h1 style="margin-top:0;">Forums</h1>
+<h1>Forums</h1>
 
-<p class="subtitle">
-  <%= feed_icon_tag "Recent Posts", all_posts_path(format: 'rss') %>
-  <%= number_with_delimiter(Topic.count) %> topics, <%= number_with_delimiter(Post.count) %> posts,
-  <%= number_with_delimiter(User.where('posts_count > 0').count) %> voices
-</p>
-
-<table border="0" cellspacing="0" cellpadding="0" class="wide forums">
+<table border="1" cellspacing="0" cellpadding="4" class="forums listing">
   <thead>
     <tr>
       <th class="la" width="1%">&nbsp;</th>
       <th class="la" width="70%">Forum</th>
-      <th class="la" width="29%">Last Post</th>
+      <th class="la" width="29%" style="text-align: right">Last Post</th>
     </tr>
   </thead>
 
   <tbody>
     <% for forum in @forums do %>
       <tr>
-        <td class="vat c1">
+        <td width="1" class="vat c1">
           <% if recent_forum_activity(forum) %>
             <%= image_tag 'clearbits/comment.gif', class: 'icon green', title: 'Recent activity' %>
           <% else %>
@@ -37,13 +31,16 @@
           <% end %>
         </td>
 
-        <td class="c2">
-          <%= link_to('Edit', edit_forum_path(forum), class: 'tiny', rel: 'directory', style: 'float: right') if admin? %>
-          <%= link_to(forum.name, forum_path(forum), class: 'title') %>
-
-          <div class="posts">
-            <%= number_with_delimiter(forum.topics_count) %> topics,
-            <%= number_with_delimiter(forum.posts_count) %> posts
+        <td class="c2 smaller">
+          <div class="simple_flex_row netsurf">
+            <%= link_to(forum.name, forum_path(forum), class: 'title') %>
+            <div class="forum_stats netsurf">
+              <%= number_with_delimiter(forum.topics_count) %> topics,
+              <%= number_with_delimiter(forum.posts_count) %> posts
+              <% if admin? %>
+                <%= link_to('Edit', edit_forum_path(forum)) %>
+              <% end %>
+            </div>
           </div>
 
           <div class="desc">
@@ -51,23 +48,26 @@
           </div>
         </td>
 
-        <td class="inv lp">
+        <td class="lp">
           <% if @most_recent_posts_per_forum.key?(forum.id) %>
             <% post = @most_recent_posts_per_forum[forum.id] %>
-            <%= time_ago_in_words(post.created_at) %><br />
-            by
-            <strong><%= post.user.display_name %></strong>
-            <span>
-              (<%=
+            <abbr class="updated" title="<%= post.created_at.xmlschema %>">
+              <%=
                 link_to(
-                  'view',
+                  time_ago_in_words(post.created_at) + ' ago',
                   forum_topic_path(
                     forum_id:     forum,
                     id:           post.topic_id,
                     jump_to_post: post.id
                   )
                 )
-              %>)
+              %>
+            </abbr>
+            by
+            <span class="author">
+              <strong class="fn">
+                <%= apphelp_linked_name(post.user) %>
+              </strong>
             </span>
           <% else %>
             &ndash;
@@ -102,3 +102,9 @@
     </div>
   </div>
 <% end %>
+
+<p class="subtitle">
+  <%= feed_icon_tag "Recent Posts", all_posts_path(format: 'rss') %>
+  <%= number_with_delimiter(Topic.count) %> topics, <%= number_with_delimiter(Post.count) %> posts,
+  <%= number_with_delimiter(User.where('posts_count > 0').count) %> voices
+</p>

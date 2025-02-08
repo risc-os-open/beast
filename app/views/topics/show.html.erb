@@ -23,39 +23,33 @@
   <% end %>
 <% end %>
 
-<% if logged_in? %>
-  <%
-    form_submission_path  = forum_topic_monitorships_path(forum_id: @forum.id, topic_id: @topic.id)
-    form_submission_path << '/destroy' if @monitoring
+<div class="simple_flex_row">
+  <h1>
+    <%= @topic.title %>
+    <span class="small"><small>
+      <%= '(sticky)' if @topic.sticky? %>
+      <%= '(locked)' if @topic.locked? %>
+    </small></span>
+  </h1>
 
-    form_method = @monitoring ? 'delete' : 'post'
-  %>
-  <%= form_tag(form_submission_path, method: form_method, style: 'margin-top: 0em; float: right;') do %>
-    <div>
+  <% if logged_in? %>
+    <%
+      form_submission_path  = forum_topic_monitorships_path(forum_id: @forum.id, topic_id: @topic.id)
+      form_submission_path << '/destroy' if @monitoring
+
+      form_method = @monitoring ? 'delete' : 'post'
+    %>
+    <%= form_tag(form_submission_path, method: form_method, style: 'flex-grow: 2; text-align: right;') do %>
       <input id="monitor_checkbox" type="checkbox" <%= "checked='checked'" if @monitoring %> />
       <label id="monitor_label" for="monitor_checkbox">Watch<%= "ing" if @monitoring %> topic</label>
       <%= submit_tag 'Set', id: 'monitor_submit' %>
-    </div>
-  <% end %>
-<% end %>
+    <% end %>
 
-<div class="crumbs">
-  <%= link_to('Forums', root_path()) %> <span class="arrow">&rarr;</span>
-  <%= link_to(@topic.forum.name, forum_path(@topic.forum)) %> <span class="arrow">&rarr;</span>
-</div>
-
-<h1 id="topic-title" style="margin-top:0.5em;"<%= %( onMouseOver="$('topic_mod').show();" onMouseOut="$('topic_mod').hide();") if logged_in? %>>
-  <%= @topic.title %>
-
-  <% if @topic.locked? %>
-    <span>(locked)</span>
-  <% end %>
-
-  <% if logged_in? %>
     <% if (current_user.admin? && @topic.editable_by?(current_user)) %>
-      <span id="topic_mod">
-        <%= link_to('edit', edit_forum_topic_path(forum_id: @forum.id, id: @topic.id), class: 'utility') %>
-        <%
+      <div id="topic_mod">
+        <%= link_to(' Edit topic', edit_forum_topic_path(forum_id: @forum.id, id: @topic.id)) %>
+        or
+        <%=
           form_for(
             :topic,
             url:  forum_topic_path(forum_id: @forum.id, id: @topic.id),
@@ -68,49 +62,50 @@
         %>
           <%= submit_tag 'Delete' %>
         <% end %>
-      </span>
+      </div>
     <% end %>
   <% end %>
-</h1>
+</div>
 
-<p class="subtitle">
-  <%= feed_icon_tag(@topic.title, forum_topic_path(forum_id: @forum.id, id: @topic.id, format: :rss)) %>
-  <%= pluralize(@topic.posts.count, 'post') %>, <%= pluralize(@topic.voices, 'voice') %>
-</p>
+<div class="crumbs">
+  <%= link_to('Forums', root_path()) %> <span class="arrow">&rarr;</span>
+  <%= link_to(@topic.forum.name, forum_path(@topic.forum)) %> <span class="arrow">&rarr;</span>
+</div>
 
 <%= pagy_nav(@pagy).html_safe() %>
 
-<table border="0" cellspacing="0" cellpadding="0" class="posts wide">
-  <% for post in @posts do %>
-    <% unless post == @posts.first %>
-      <tr class="spacer">
-        <td colspan="2">
-          <a name="<%= post.dom_id %>" id="<%= post.dom_id %>" class="spacer_link">&nbsp;</a>
-        </td>
-      </tr>
-    <% end %>
+<table border="0" cellspacing="0" cellpadding="4" class="posts listing">
+  <tbody>
+    <% for post in @posts do %>
+      <% unless post == @posts.first %>
+        <tr class="spacer">
+          <td colspan="2">
+            <a name="<%= post.dom_id %>" id="<%= post.dom_id %>" class="spacer_link">&nbsp;</a>
+          </td>
+        </tr>
+      <% end %>
 
-    <tr class="post hentry" id="<%= post.dom_id %>-row">
-      <td class="author vcard">
-        <div class="date">
-          <a href="#<%= post.dom_id %>" rel="bookmark">
-            <abbr class="updated" title="<%= post.created_at.xmlschema %>">
-              <%= apphelp_creation_time_in_london(post) %>
-            </abbr>
-          </a>
-        </div>
+      <tr class="post hentry" id="<%= post.dom_id %>-row">
+        <td class="author vcard" width="20%">
+          <div class="date">
+            <a href="#<%= post.dom_id %>" rel="bookmark">
+              <abbr class="updated" title="<%= post.created_at.xmlschema %>">
+                <%= apphelp_creation_time_in_london(post) %>
+              </abbr>
+            </a>
+          </div>
 
-        <%= avatar_for post.user %>
-        <span class="fn">
-          <%= link_to(post.user.display_name, user_path(post.user), class: (post.user == @posts.first.user ? 'admin' : nil)) %>
-        </span>
-        <span class="posts">
-          <%= pluralize post.user.posts_count, 'post' %>
-        </span>
+          <%= avatar_for post.user %>
 
-        <% if logged_in? && post.editable_by?(current_user) %>
-          <p>
-            <span class="edit">
+          <span class="fn">
+            <%= apphelp_linked_name(post.user) %>
+          </span>
+          <span class="posts">
+            <%= pluralize post.user.posts_count, 'post' %>
+          </span>
+
+          <% if logged_in? && post.editable_by?(current_user) %>
+            <div class="edit">
               <%=
                 link_to(
                   'Edit post',
@@ -124,16 +119,16 @@
                   class: 'utility'
                 )
               %>
-            </span>
-          </p>
-        <% end %>
-      </td>
+            </div>
+          <% end %>
+        </td>
 
-      <td class="body entry-content" id="post-body-<%= post.id %>">
-        <%= post.body_html.html_safe() %>
-      </td>
-    </tr>
-  <% end %>
+        <td class="body entry-content" id="post-body-<%= post.id %>" width="80%">
+          <%= post.body_html.html_safe() %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <%= pagy_nav(@pagy).html_safe() %>
@@ -187,3 +182,26 @@
   <%= link_to('Forums', root_path()) %> <span class="arrow">&rarr;</span>
   <%= link_to(@topic.forum.name, forum_path(@topic.forum)) %> <span class="arrow">&rarr;</span>
 </div>
+
+<p class="subtitle">
+  <%= feed_icon_tag(@topic.title, forum_topic_path(forum_id: @forum.id, id: @topic.id, format: :rss)) %>
+  <%= pluralize(@topic.posts.count, 'post') %>, <%= pluralize(@topic.voices, 'voice') %>
+</p>
+
+<script type="text/javascript">
+  //
+  // A bit of code that styles links that appear to be an "http..." text link
+  // in a way that makes modern browsers happy to wrap on character boundaries,
+  // not just words. This causes better behaviour in small viewports.
+  //
+  // Links where the visible text portion is *not* apparently itself a URL are
+  // not included, so they word-wrap normally, as this is very likely to be the
+  // desired presentation. That's why CSS alone is insufficient here.
+  //
+  document.querySelectorAll('#content .post .body a').forEach(function(link) {
+    if (link.textContent.startsWith('http')) {
+      console.log(link.style);
+      link.style.overflowWrap = 'anywhere';
+    }
+  });
+</script>

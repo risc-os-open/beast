@@ -15,7 +15,7 @@
 
 <%= pagy_nav(@pagy).html_safe() %>
 
-<table border="0" cellspacing="0" cellpadding="0" class="wide forums">
+<table border="0" cellspacing="0" cellpadding="0" class="forums listing">
   <tr>
     <th class="la" width="88%">Name / Login</th>
     <th>Website</th>
@@ -36,7 +36,7 @@
           <%= white_list link_to(user.website.gsub("http://",""), "http://" + user.website.gsub("http://","")) %>
         <% end %>
       </td>
-      <td class="ca inv"><%= user.posts_count %></td>
+      <td class="ca"><%= user.posts_count %></td>
     </tr>
   <% end %>
 </table>
