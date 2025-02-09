@@ -11,12 +11,15 @@
   <% end %>
 </h1>
 
-<p class="subtitle">
-  <%= feed_icon_tag(@page_title, search_posts_path(true)) %>
-  <%= pluralize(@pagy.count, 'post') %> found
-</p>
+<div class="crumbs">
+  <%= link_to('Forums', root_path()) %> <span class="arrow">&rarr;</span>
+</div>
 
-<%= pagy_nav(@pagy).html_safe() %>
+<% if @pagy.pages > 1 %>
+  <%= pagy_nav(@pagy).html_safe() %>
+<% else %>
+  <br />
+<% end %>
 
 <table border="0" cellspacing="0" cellpadding="0" class="posts wide">
   <% @posts.each do | post | %>
@@ -68,4 +71,11 @@
   <% end %>
 </table>
 
-<%= pagy_nav(@pagy).html_safe() %>
+<% if @pagy.pages > 1 %>
+  <%= pagy_nav(@pagy).html_safe() %>
+<% end %>
+
+<p class="subtitle">
+  <%= feed_icon_tag(@page_title, search_posts_path(true)) %>
+  <%= pluralize(@pagy.count, 'post') %> found
+</p>

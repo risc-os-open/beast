@@ -6,7 +6,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <title>RISC OS Open: Forum<%= ": #{@page_title}" if @page_title.present? %></title>
+    <title>
+      RISC OS Open: <%= @page_title.present? ? @page_title : 'Forums' %>
+    </title>
 
     <%= stylesheet_link_tag 'application' %>
 
@@ -43,11 +45,11 @@
       <div id="template_sidebar">
         <div id="template_sidebar_content">
           <div class="template_sidebar_node" id="search">
-            <h3>Search forums</h3>
+            <h3>Search</h3>
 
-            <%= form_tag search_all_posts_path(), method: 'get' do %>
-              <%= text_field_tag :q, params[:q], size: 15, id: 'search_box' %>
-              <input type="submit" name="submit" value="Go" />
+            <%= form_with url: search_all_posts_path(), method: 'get', class: 'search_form' do |f| %>
+              <%= f.search_field :q, value: params[:q], size: 14, placeholder: 'Search forums' %>
+              <%= f.submit('Go') %>
             <% end %>
           </div>
 
