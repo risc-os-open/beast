@@ -640,6 +640,7 @@
 #content div.editbox p { margin:0.5em 0;}
 #content textarea
 {
+  box-sizing: border-box;
   width: 100%;
 }
 
