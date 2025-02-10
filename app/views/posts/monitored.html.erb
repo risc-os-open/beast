@@ -27,7 +27,7 @@
     <% end %>
 
     <tr class="post hentry" id="<%= post.dom_id %>">
-      <td class="author vcard">
+      <td class="author">
         <div class="date">
           <abbr class="updated" title="<%= post.created_at.xmlschema %>">
             <%= apphelp_creation_time_in_london(post) %>
@@ -46,7 +46,7 @@
         </span>
         <span class="posts"><%= pluralize post.user.posts_count, 'post' %></span>
       </td>
-      <td class="body entry-content">
+      <td class="body">
         <p class="topic">
           Topic: <%= link_to(post.topic.title, forum_topic_path(forum_id: post.forum_id, id: post.topic_id)) %>
         </p>

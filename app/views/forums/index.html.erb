@@ -11,12 +11,12 @@
 
 <h1>Forums</h1>
 
-<table border="1" cellspacing="0" cellpadding="4" class="forums listing">
+<table border="1" cellspacing="0" cellpadding="4" class="forums collapsible">
   <thead>
     <tr>
-      <th class="la" width="1%">&nbsp;</th>
+      <th class="la c1" width="1%">&nbsp;</th>
       <th class="la" width="70%">Forum</th>
-      <th class="la" width="29%" style="text-align: right">Last Post</th>
+      <th class="lp" width="29%">Last Post</th>
     </tr>
   </thead>
 
@@ -51,7 +51,11 @@
         <td class="lp">
           <% if @most_recent_posts_per_forum.key?(forum.id) %>
             <% post = @most_recent_posts_per_forum[forum.id] %>
-            <abbr class="updated" title="<%= post.created_at.xmlschema %>">
+            <span class="author">
+              <%= apphelp_linked_name(post.user) %>
+            </span>
+            &ndash;
+            <strong class="updated" title="<%= post.created_at.xmlschema %>">
               <%=
                 link_to(
                   time_ago_in_words(post.created_at) + ' ago',
@@ -62,13 +66,7 @@
                   )
                 )
               %>
-            </abbr>
-            by
-            <span class="author">
-              <strong class="fn">
-                <%= apphelp_linked_name(post.user) %>
-              </strong>
-            </span>
+            </strong>
           <% else %>
             &ndash;
           <% end %>

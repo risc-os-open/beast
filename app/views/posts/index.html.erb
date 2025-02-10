@@ -21,7 +21,7 @@
   <br />
 <% end %>
 
-<table border="0" cellspacing="0" cellpadding="0" class="posts wide">
+<table border="0" cellspacing="0" cellpadding="4" class="posts collapsible">
   <% @posts.each do | post | %>
     <% user = post.user || missing_user %>
 
@@ -32,25 +32,21 @@
     <% end %>
 
     <tr class="post hentry" id="<%= post.dom_id %>">
-      <td class="author vcard">
+      <td class="author">
+        <%= avatar_for(user) %>
+
         <div class="date">
           <abbr class="updated" title="<%= post.created_at.xmlschema %>">
             <%= apphelp_creation_time_in_london(post) %>
           </abbr>
         </div>
 
-        <%= avatar_for(user) %>
-
         <span class="fn">
           <%=
             if user.id.zero?
               user.display_name
             else
-              link_to(
-                user.display_name,
-                user_path(user),
-                class: (user.id == @posts.first.user_id) ? 'admin' : nil
-              )
+              apphelp_linked_name(user)
             end
           %>
         </span>
@@ -59,7 +55,7 @@
         </span>
       </td>
 
-      <td class="body entry-content">
+      <td class="body">
         <p class="topic">
           Topic: <%= link_to(post.forum.name, forum_path(post.forum_id)) %> /
           <%= link_to(post.topic.title, forum_topic_path(forum_id: post.forum_id, id: post.topic_id)) %>

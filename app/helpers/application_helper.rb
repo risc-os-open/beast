@@ -91,7 +91,7 @@ module ApplicationHelper
       'Unknown'
     else
       link_to(
-        user_hub_display_name.gsub(/\(\d+\)$/, ''),
+        user_hub_display_name.gsub(/\ \(\d+\)$/, ''),
         user_path(user),
         title: user_hub_display_name
       )

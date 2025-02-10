@@ -38,11 +38,11 @@
 <table border="1" cellspacing="0" cellpadding="4" class="topics listing">
   <thead>
     <tr>
-      <th></th>
-      <th class="la">Topic</th>
-      <th width="1%">Posts</th>
-      <th width="1%">Views</th>
-      <th class="la" style="text-align: right">Last post</th>
+      <th class="c1"></th>
+      <th class="c2 la">Topic</th>
+      <th class="stat" width="1%">Posts</th>
+      <th class="stat" width="1%">Views</th>
+      <th class="lp">Last post</th>
     </tr>
   </thead>
 
@@ -84,7 +84,11 @@
         <td class="ca stat"><%= number_with_delimiter(topic.views) %></td>
 
         <td class="lp">
-          <abbr class="updated" title="<%= topic.replied_at.xmlschema %>">
+          <span class="author">
+            <%= apphelp_linked_name(topic.replied_by_user) %>
+          </span>
+          &ndash;
+          <strong class="updated" title="<%= topic.replied_at.xmlschema %>">
             <%=
               link_to(
                 time_ago_in_words(topic.replied_at) + ' ago',
@@ -95,13 +99,7 @@
                 )
               )
             %>
-          </abbr>
-          by
-          <span class="author">
-            <strong class="fn">
-              <%= apphelp_linked_name(topic.replied_by_user) %>
-            </strong>
-          </span>
+          </strong>
         </td>
       </tr>
     <% end %>
