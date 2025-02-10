@@ -735,7 +735,7 @@
     display: none;
   }
 
-  #content table.collapsible.topics tr
+  #content table.collapsible.topics tr.odd
   {
     background: none;
   }
