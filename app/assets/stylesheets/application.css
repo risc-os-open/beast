@@ -735,10 +735,25 @@
     display: none;
   }
 
+  #content table.collapsible.topics tr
+  {
+    background: none;
+  }
+
   #content table.collapsible.topics td.c2
   {
-    display: inline-block;
-    float: left;
+    font-size: 1.4em;
+  }
+
+  #content table.collapsible.topics td.lp
+  {
+    font-size: 12pt;
+    text-align: left;
+  }
+
+  #content table.collapsible.topics td.lp:before
+  {
+    content: 'Last post:'
   }
 
   #content table.forums tr td.c2
