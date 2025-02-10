@@ -735,11 +735,6 @@
     display: none;
   }
 
-  #content table.collapsible.topics tr.odd
-  {
-    background: none;
-  }
-
   #content table.forums tr td .title
   {
     font-size: 1.25em;
