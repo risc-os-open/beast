@@ -1,0 +1,769 @@
+/* RISC OS Open Beast theme stylesheet.
+ *
+ * Heavily based on the Beast default theme.
+ */
+
+@import url("https://www.riscosopen.org/css/risc_os_open_2025.css");
+
+#content form {margin-bottom:0;}
+
+#content p.subtle
+{
+  margin:0 0 0.5em;
+  float:right;
+}
+
+#content .subtle a
+{
+  color:#999;
+  font-size:0.7em;
+}
+
+#content img { border-width:0; }
+
+#content p.pages
+{
+  font-size:0.85em;
+  margin-top:1.2em;
+}
+
+#content span.pipe
+{
+  color:#999;
+  margin:0 0.15em;
+}
+
+#content div.news
+{
+  background:#cfc;
+  text-align:center;
+  margin:0 auto;
+  width:40em;
+  margin-top:1em;
+  padding:7px 15px;
+  font-size:0.7em;
+  font-weight:bold;
+}
+
+#content div.news p { margin:0; }
+
+#content p.notice,
+#content p.sections
+{
+  background:#df9;
+  padding:7px 15px;
+  border:1px solid #bd7;
+  margin-top:0;
+  font-size:0.8em;
+}
+
+#content p.error
+{
+  background:#c00;
+  color:white;
+}
+
+#content p.sections a.action { color:#c00; }
+
+#content .hasfile
+{
+  color:#090;
+  font-weight:bold;
+  margin-left:10em;
+}
+
+#content p.subtitle
+{
+  font-size:0.75em;
+  color:#888;
+  font-weight:bold;
+  margin-bottom:0.75em;
+}
+
+#content p.subtitle img { vertical-align: bottom; }
+#content p.subtitle a { border: none; }
+
+#content h1 { margin-bottom: 20px; font-size: 2em; }
+#content h1 img { vertical-align:middle; }
+#content h1 span { font-size:70%; color:#999; font-weight:normal; padding-left: 10px;}
+
+#content h2 { font-size:1.0em; }
+
+#content h2 span
+{
+  color:#999;
+  font-size:0.7em;
+  margin-left:1em;
+}
+
+#content h5
+{
+  padding:2px 10px 3px;
+  background:#ddd;
+  font-size: 80%;
+}
+
+#content h6 { margin-bottom:0; }
+
+#content pre.explain
+{
+  background:#e7e7e7;
+  padding:7px 15px;
+  border:1px solid #ccc;
+  margin:0 2em;
+}
+
+#content hr
+{
+  height:0;
+  border:0;
+  border-bottom:1px solid #ccc;
+  margin:1em 0;
+}
+
+#content #monitor_topic {
+  font-size: 12px;
+}
+
+#content #monitor_topic .icon {
+  background-image:none;
+}
+
+#content ul.quotes,
+#content ul.flat
+{
+  margin-left:0;
+  padding-left:0;
+  font-size:0.75em;
+  list-style-type:none;
+}
+
+#content ul.talking li span
+{
+  color:#666;
+  font-size:0.8em;
+}
+
+#content ul.flat li
+{
+  background:url("/assets/small_circle-12d6e209.gif") no-repeat 5px 6px;
+  padding-left:15px;
+}
+
+#content ul.ways li span
+{
+  color:#666;
+  font-size:0.9em;
+}
+
+#content ul.quotes
+{
+  font-size:0.8em;
+}
+
+#content ul.quotes li {margin-bottom:1em; }
+#content ul.quotes span
+{
+  color:#666;
+  font-size:0.9em;
+}
+
+#content ul.why
+{
+  font-size:1em;
+  line-height:1.25em;
+  margin-top:2em;
+}
+
+#content ul.why li p
+{
+  margin-top:0.5em;
+  color:#666;
+  font-size:0.9em;
+}
+
+#content ul.why li p strong { color:#c00; }
+
+#content a.utility
+{
+  font-weight:normal;
+  font-size:0.8em;
+}
+
+#content a.remove { color:#c00; }
+#content a.subtle { color:#369; }
+#content a.subtle:hover { color:blue; }
+
+#content div.asset
+{
+  background:#e7e7e7;
+  padding:7px 15px;
+  border-bottom:1px solid #ccc;
+  font-size:0.8em;
+  margin-bottom:1em;
+  text-align:center;
+}
+
+#content input.submit
+{
+  margin-right:1em;
+  float:right;
+}
+
+/* layout of paste */
+
+#content .pastebox
+{
+  width:100%;
+}
+
+#content .legend
+{
+  margin-top:0;
+  color:#999;
+  font-size:0.8em;
+}
+#content .legend span strong { color: black; }
+#content .legend span
+{
+  margin-right:5em;
+}
+
+#content div.upload
+{
+  margin-top:-0.5em;
+  /* background:#e7e7e7; */
+  padding:7px 0;
+  float:left;
+  /* width:63%; */
+  margin-left:0.5em;
+}
+#content div.upload p label { font-size:0.7em; font-weight:bold;}
+#content div.upload p {margin:0}
+#content div.upload input { margin-left:0.75em;}
+#content div.upload a
+{
+  color:#666;
+  font-size:0.8em;
+}
+
+#content .pastePreview pre { font-size:0.9em; }
+
+#content .pastePreview p
+{
+  color:#777;
+  font-size:0.7em;
+  margin:0 0 0.5em;
+}
+
+#content .pastePreview .when { float:right; }
+#content .pastePreview .when strong {  color:black; }
+
+#content #news
+{
+  background:#248;
+  background:#475f30;
+  border:2px solid #778f60;
+  border-width:2px 0;
+  padding:5px 4%;
+  color:#ffc;
+  font-size:0.70em;
+  text-align:center;
+
+  position:fixed;
+  bottom:0;
+  width:100%;
+  padding:6px 0 7px;
+  z-index:50;
+}
+
+#content #news a.subtle {  color:#ffc; font-weight:normal;}
+#content #news a {color:gold; font-weight:bold}
+#content #news p {margin:0;}
+
+#content .line_numbers,
+#content .lineNumbers
+{
+  color:#999;
+  padding-right:0.5em;
+  text-align:right;
+}
+
+#content .line_numbers strong { color:#555; }
+
+#content td.code,
+#content .thePaste
+{
+  padding-left:0.75em;
+}
+
+#content label
+{
+  color:#666;
+  font-size:0.75em;
+  font-weight:normal;
+}
+
+/* random */
+
+#content .photo
+{
+  background: url("/assets/clearbits/smile-4bad833b.gif") no-repeat 8px 8px;
+}
+
+#content span.fn
+{
+  display:block;
+}
+
+#content div.edit
+{
+  margin-top: 10px;
+}
+
+#content .smallutils
+{
+  margin-top:-0.5em;
+  margin-bottom:0em;
+  text-align:right;
+}
+
+#content .smallutils a
+{
+  color:#666;
+  font-size:0.7em;
+}
+
+#content .smallutils a:hover {color:#369;}
+
+#content #topic_mod
+{
+  margin-left: 20px;
+  font-size: 0.75em;
+}
+
+/* NetSurf assistance */
+
+/* Fix strange extra top margin and missing bottom margin */
+.simple_flex_row.netsurf
+{
+  border: 1px solid transparent;
+}
+
+/* Work around failure to apply "justify-content: space-between" in the row */
+.forum_stats.netsurf
+{
+  margin-left: 20px;
+}
+
+/* tables */
+
+#content table.noborder,
+#content table.noborder tr,
+#content table.noborder tr td
+{
+  border:0;
+}
+
+#content table.nopad td
+{
+  padding-left:0;
+}
+
+#content table
+{
+  border-collapse:collapse;
+}
+
+#content table tr th
+{
+  background:#ddd;
+}
+
+#content table.forums tr th,
+#content table.forums tr td
+{
+  border: 1px solid #ddd;
+}
+
+/* topics */
+
+#content #forum_description,
+#content #topic_body
+{
+  width:99%;
+}
+
+/* specific table styles */
+
+#content table.forums tr td .title
+{
+  font-size:1.4em;
+}
+
+#content table.forums tr td .desc
+{
+  margin: 0.5 0 0 0;
+}
+
+#content table.forums tr td .desc p:last-child
+{
+  margin-bottom: 0;
+}
+
+#content table.forums tr td,
+#content table.forums tr th:last-child
+{
+  padding: 4px 10px;
+}
+
+#content table.forums .posts
+{
+  color:#777;
+}
+
+#content table tr th.la  { text-align:left;    }
+#content table tr td.ca  { text-align:center;  }
+#content table tr td.vat { vertical-align:top; }
+
+#content table tr td.narrow { padding:2px 5px;}
+
+/* last post */
+
+#content table tr th.lp
+{
+  text-align: right;
+}
+
+#content table tr td.lp
+{
+  font-size:0.85em;
+  color:#333;
+  text-align: right;
+}
+
+#content table tr td.lp span   { color:#666; }
+#content table tr td.lp span a { color:#369; }
+
+#content table.forums tr td.c1 { border-right: 0; padding: 11px 10px 0   10px; }
+#content table.forums tr td.c2 { border-left:  0; padding:  7px 10px 9px 0;    }
+
+#content table.topics tr td.c2 small a { color:#666; }
+#content table.topics tr td.stat { font-size:0.9em; }
+
+/* misc */
+
+#content .button_or
+{
+  color:#666;
+  padding-left:0.5em;
+  font-size:0.75em;
+}
+#content .button_or a { color:#c00; }
+
+#content form.dialog
+{
+  margin-top:3em;
+  background:#eee;
+  width:300px;
+  padding:15px;
+}
+
+#content form .entryhelp
+{
+  font-size:0.7em;
+}
+
+#content form .help
+{
+  font-size:0.8em;
+}
+
+#content span.arrow
+{
+  font-weight:normal;
+  font-size:0.9em;
+  color:#999;
+}
+
+#content div.stats
+{
+  margin-top:2em;
+  background: #e5ffd4 url("/images/risc_os_open/top_fade.png") top left repeat-x;;
+  font-size:0.8em;
+  padding:15px 15px;
+}
+#content div.stats .posts { float:right; text-align:right; }
+
+/* breadcrumbs */
+
+#content .crumbs
+{
+  font-size:0.75em;
+}
+#content .crumbs a { color:#468; }
+#content .crumbs a:hover { color:#00c; }
+
+/* posts */
+
+#content table.posts
+{
+  border-bottom: 2px solid #eee;
+}
+
+#content table.posts > tbody > tr > td
+{
+  border:0;
+}
+
+#content table.posts tr.spacer td
+{
+  font-size: 1px;
+  height: 10px;
+  padding: 0;
+}
+
+#content table.posts table
+{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* fade edit links */
+
+#content .post .author .edit a
+{
+  font-size:0.7em;
+  color:#666;
+}
+
+#content .post .author img
+{
+  float:right;
+  margin:3px 0 5px 10px;
+}
+
+#content .post .author
+{
+  vertical-align: top;
+  padding: 8px 10px;
+  border-top: 2px solid #eee;
+  font-size: 100%;
+  font-weight: bold;
+  background: #eee;
+  color: #333;
+  min-height:32px;
+  min-width: 10em; /* Old browsers */
+  min-width: 15vw; /* Less old browsers */
+  min-width: min(14em, 15vw) /* Newer browsers */
+}
+
+#content .post .author .posts
+{
+  display:block;
+  font-size:80%;
+  color:#666;
+  margin-top:6px;
+}
+
+#content .post .author a
+{
+  font-weight: normal;
+  font-size: 90%;
+}
+
+#content a.admin,
+#content .post .author a.admin
+{
+  font-weight: bold
+}
+
+#content .posts .post .body pre
+{
+  white-space: pre-wrap;
+}
+
+#content .post .date
+{
+  font-size:0.75em;
+  color:#666;
+  font-weight:normal;
+  margin-bottom:0.5em;
+}
+
+#content .date a,
+#content .date a abbr { border: none; }
+
+#content .posts .post .body
+{
+  border-top: 2px solid #eee;
+  padding: 0 0 0 10px;
+}
+
+#content .post .body p.topic
+{
+  font-size:0.8em;
+  font-weight:bold;
+  background:#eee;
+  padding:2px 10px;
+}
+
+/* other stuff */
+
+#content p.online {margin-bottom:0;}
+
+#content img.icon
+{
+  background:#696;
+  background-image: url("/assets/clearbits/bg_rounded-f78037c2.gif");
+  background-repeat: no-repeat;
+  vertical-align: bottom;
+}
+#content img.reply { float:right; }
+#content img.orange { background-color:darkorange; }
+#content img.grey { background-color:#ccc; }
+#content img.darkgrey { background-color:#999; }
+#content img.green { background-color:#0c0;}
+
+#content .post .author .icon
+{
+  float:right;
+}
+
+/* Reply */
+
+#content div.editbox
+{
+  border-bottom: 1px solid #333;
+}
+
+#content div.editbox p { margin:0.5em 0;}
+#content textarea
+{
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#content div.editbox .button_or a
+{
+  color:#ccc;
+}
+
+#content div.editbox table td { border:0; }
+#content div.editbox a.utility
+{
+  color: #f99;
+  font-size: 0.65em;
+  padding: 2px 5px 4px;
+  display: block;
+  float: right;
+  text-align: right;
+  margin-top: 0.2em;
+}
+
+#content div.editbox h5
+{
+  background:#ddd;
+  padding:2px 10px 3px;
+  font-size:0.7em;
+  margin:0.2em 0 0.5em;
+}
+
+#content div.editbox p.help span,
+#content div.editbox ul.help span { color:#666; }
+#content div.editbox p.help,
+#content div.editbox ul.help
+{
+  padding: 3px 20px;
+  font-size:0.75em;
+  color:#888;
+}
+
+#content #monitor_topic a
+{
+  color: #666;
+}
+
+/*****************************************************************************\
+ * Browser-specific styles: NetSurf
+\*****************************************************************************/
+
+/* Help NetSurf get sizes right, reducing page reformatting. Problems with
+ * image sizing, even when width and height is specified in HTML, have long
+ * existed in the browser. Harmless for other browsers.
+ *
+ * Suggested by M.Drake, 2011-03-18:
+ *
+ *   https://www.riscosopen.org/forum/forums/1/topics/591?page=2
+ */
+
+#content img.icon
+{
+  display: block;
+  width: 16px; /* Beast always uses "clearbits" 16x16 icon set images */
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+#content .photo
+{
+  display: block;
+}
+
+/*****************************************************************************\
+ * Narrower viewports
+\*****************************************************************************/
+
+@media (max-width: 800px)
+{
+  #content table.collapsible .author
+  {
+    width: auto !important;
+  }
+
+  #content table.collapsible,
+  #content table.collapsible td {
+    border: none !important;
+  }
+
+  #content table.collapsible tr.spacer,
+  #content table.forums      .c1,
+  #content table.forums      .lp,
+  #content table.topics      .c1,
+  #content table.topics      .stat
+  {
+    display: none;
+  }
+
+  #content table.forums tr td .title
+  {
+    font-size: 1.25em;
+  }
+
+  #content table.collapsible.topics td.c2
+  {
+    font-size: 1.25em;
+  }
+
+  #content table.collapsible.topics td.lp
+  {
+    font-size: 12pt;
+    text-align: left;
+  }
+
+  #content table.collapsible.topics td.lp:before
+  {
+    content: 'Last post:'
+  }
+
+  #content table.forums tr td.c2
+  {
+    padding: 8px 10px;
+  }
+
+  #content .posts .post .body
+  {
+    padding: 0 10px;
+  }
+}
