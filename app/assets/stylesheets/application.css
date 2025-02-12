@@ -98,7 +98,7 @@
 
 #content .simple_flex_row .rss
 {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 /* The above floats right when this floats left, but it sometimes has other
@@ -107,7 +107,7 @@
 
 #content .simple_flex_row nav.pagy
 {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 @media (max-width: 800px) {
