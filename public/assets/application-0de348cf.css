@@ -75,16 +75,16 @@
 #content .subtitle,
 #content .rss
 {
-  font-size:0.75em;
-  color:#888;
-  font-weight:bold;
+  font-size: 0.75em;
+  color: #888;
+  font-weight: bold;
 }
 
 #content .moderation
 {
   text-align: right;
-  font-size:0.75em;
-  color:#888;
+  font-size: 0.75em;
+  color: #888;
 }
 
 #content .subtitle
