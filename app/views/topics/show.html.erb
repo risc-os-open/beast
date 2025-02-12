@@ -72,7 +72,7 @@
   <%= link_to(@topic.forum.name, forum_path(@topic.forum)) %> <span class="arrow">&rarr;</span>
 </div>
 
-<div class="simple_flex_row with_moderation_info becomes_column_if_narrow space_between">
+<div class="simple_flex_row space_between">
   <%= pagy_nav(@pagy).html_safe() %>
   <%= render partial: 'shared/ask_a_moderator' %>
 </div>
