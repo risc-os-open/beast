@@ -760,14 +760,10 @@
     display: none;
   }
 
-  #content table.forums tr td .title
-  {
-    font-size: 1.25em;
-  }
-
+  #content table.forums tr td .title,
   #content table.collapsible.topics td.c2
   {
-    font-size: 1.25em;
+    font-size: 105%;
   }
 
   #content table.collapsible.topics td.lp
