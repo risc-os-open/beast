@@ -779,6 +779,7 @@
 
   #content table.forums tr td.c2
   {
+    padding: 8px 10px;
   }
 
   #content table.forums tr td.c2 > div.simple_flex_row
