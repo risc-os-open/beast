@@ -11,8 +11,8 @@ Rails.application.configure do
 
   # Production assets are compiled on dev machines to avoid heavy deployment env
   # dependencies, but this means we need to avoid those assets during dev work.
-  # The presence of "public/assets/.manifest.json" causes that behaviour, so use
-  # a non-existant name instead as a hack to work around the problem.
+  # The presence of "public/assets/.manifest.json" causes that behaviour, so
+  # override with a non-existent path as a hack to work around the problem.
   config.assets.manifest_path = Rails.root.join('public','assets','.does_not_exist.json')
 
   # Show full error reports.
