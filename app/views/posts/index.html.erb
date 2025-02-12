@@ -15,11 +15,10 @@
   <%= link_to('Forums', root_path()) %> <span class="arrow">&rarr;</span>
 </div>
 
-<% if @pagy.pages > 1 %>
+<div class="simple_flex_row space_between">
   <%= pagy_nav(@pagy).html_safe() %>
-<% else %>
-  <br />
-<% end %>
+  <%= render partial: 'shared/ask_a_moderator' %>
+</div>
 
 <table border="0" cellspacing="0" cellpadding="4" class="posts collapsible">
   <% @posts.each do | post | %>

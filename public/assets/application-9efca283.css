@@ -80,6 +80,13 @@
   font-weight:bold;
 }
 
+#content .moderation
+{
+  text-align: right;
+  font-size:0.75em;
+  color:#888;
+}
+
 #content .subtitle
 {
   margin-bottom:0.75em;
@@ -96,7 +103,9 @@
  * needing to influence other spacing by using a container-wide gap value).
  */
 
-#content .simple_flex_row .rss {
+#content .simple_flex_row .rss,
+#content .simple_flex_row .moderation
+{
   margin-left: 20px;
 }
 

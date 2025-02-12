@@ -10,7 +10,10 @@
   </ul>
 <% end %>
 
-<h1><%= @page_title %></h1>
+<div class="simple_flex_row space_between">
+  <%= pagy_nav(@pagy).html_safe() %>
+  <%= render partial: 'shared/ask_a_moderator' %>
+</div>
 
 <%= pagy_nav(@pagy).html_safe() %>
 
