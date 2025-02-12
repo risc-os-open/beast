@@ -9,6 +9,10 @@ Rails.application.configure do
   # Eager load code on boot, to detect issues early.
   config.eager_load = true
 
+  # Production assets are compiled on dev machines to avoid heavy deployment env
+  # dependencies, but this means we need to avoid those assets during dev work.
+  config.public_file_server.enabled = false
+
   # Show full error reports.
   config.consider_all_requests_local = true
 

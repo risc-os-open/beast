@@ -342,20 +342,6 @@
   font-size: 0.75em;
 }
 
-/* NetSurf assistance */
-
-/* Fix strange extra top margin and missing bottom margin */
-.simple_flex_row.netsurf
-{
-  border: 1px solid transparent;
-}
-
-/* Work around failure to apply "justify-content: space-between" in the row */
-.forum_stats.netsurf
-{
-  margin-left: 20px;
-}
-
 /* tables */
 
 #content table.noborder,
@@ -380,11 +366,7 @@
   background:#ddd;
 }
 
-#content table.forums tr th,
-#content table.forums tr td
-{
-  border: 1px solid #ddd;
-}
+/* forums */
 
 /* topics */
 
@@ -398,7 +380,8 @@
 
 #content table.forums tr td .title
 {
-  font-size:1.4em;
+  font-size: 100%;
+  font-weight: bold;
 }
 
 #content table.forums tr td .desc
@@ -406,9 +389,20 @@
   margin: 0.5 0 0 0;
 }
 
+#content table.forums tr td .desc p:first-child
+{
+  margin-top: 6px;
+}
+
 #content table.forums tr td .desc p:last-child
 {
   margin-bottom: 0;
+}
+
+#content table.forums tr th,
+#content table.forums tr td
+{
+  border: 1px solid #ddd;
 }
 
 #content table.forums tr td,
@@ -419,7 +413,13 @@
 
 #content table.forums .posts
 {
-  color:#777;
+  color: #777;
+}
+
+#content table.forums .forum_stats
+{
+  text-align: right;
+  margin-left: 20px;
 }
 
 #content table tr th.la  { text-align:left;    }
@@ -709,6 +709,13 @@
 #content .photo
 {
   display: block;
+}
+
+/* Fix strange extra top margin and missing bottom margin (v3.11, Dec 2023) */
+
+.simple_flex_row.netsurf
+{
+  border-top: 1px solid transparent;
 }
 
 /*****************************************************************************\

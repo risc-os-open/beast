@@ -34,7 +34,7 @@
         <td class="c2 smaller">
           <div class="simple_flex_row netsurf">
             <%= link_to(forum.name, forum_path(forum), class: 'title') %>
-            <div class="forum_stats netsurf">
+            <div class="forum_stats">
               <%= number_with_delimiter(forum.topics_count) %> topics,
               <%= number_with_delimiter(forum.posts_count) %> posts
               <% if admin? %>
