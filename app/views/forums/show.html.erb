@@ -106,11 +106,12 @@
   </tbody>
 </table>
 
-<div class="simple_flex_row space_between">
-  <div class="simple_flex_row netsurf">
+<div class="simple_flex_row becomes_column_if_narrow space_between">
+  <div class="simple_flex_row becomes_column_if_narrow space_after netsurf">
     <%= pagy_nav(@pagy).html_safe() %>
     &nbsp;&nbsp;
     <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %>
+    &nbsp;&nbsp;
   </div>
 
   <div class="rss">
