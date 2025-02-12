@@ -106,13 +106,15 @@
   </tbody>
 </table>
 
-<div class="simple_flex_row space_after">
-  <%= pagy_nav(@pagy).html_safe() %>
-  &nbsp;&nbsp;
-  <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %>
-</div>
+<div class="simple_flex_row space_between">
+  <div class="simple_flex_row netsurf">
+    <%= pagy_nav(@pagy).html_safe() %>
+    &nbsp;&nbsp;
+    <%= link_to 'New topic', new_forum_topic_path(forum_id: @forum.id) %>
+  </div>
 
-<p class="subtitle">
-  <%= feed_icon_tag(@forum.name, forum_posts_path(@forum, format: :rss)) %>
-  <%= pluralize(@forum.topics_count, 'topic') %>, <%= pluralize(@forum.posts_count, 'post') %>
-</p>
+  <div class="rss">
+    <%= feed_icon_tag(@forum.name, forum_posts_path(@forum, format: :rss)) %>
+    <%= pluralize(@forum.topics_count, 'topic') %>, <%= pluralize(@forum.posts_count, 'post') %>
+  </div>
+</div>

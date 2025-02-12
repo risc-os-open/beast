@@ -131,7 +131,14 @@
   </tbody>
 </table>
 
-<%= pagy_nav(@pagy).html_safe() %>
+<div class="simple_flex_row space_between">
+  <%= pagy_nav(@pagy).html_safe() %>
+
+  <div class="rss">
+    <%= feed_icon_tag(@topic.title, forum_topic_path(forum_id: @forum.id, id: @topic.id, format: :rss)) %>
+    <%= pluralize(@topic.posts.count, 'post') %>, <%= pluralize(@topic.voices, 'voice') %>
+  </div>
+</div>
 
 <% if logged_in? %>
   <div id="edit"></div>
@@ -177,16 +184,6 @@
   <p />
   To post replies, please first <%= apphelp_hub_login_link('log in', include_return_url: true, return_fragment: 'edit') %>.
 <% end %>
-
-<div class="crumbs" style="margin-top: 1.1em;">
-  <%= link_to('Forums', root_path()) %> <span class="arrow">&rarr;</span>
-  <%= link_to(@topic.forum.name, forum_path(@topic.forum)) %> <span class="arrow">&rarr;</span>
-</div>
-
-<p class="subtitle">
-  <%= feed_icon_tag(@topic.title, forum_topic_path(forum_id: @forum.id, id: @topic.id, format: :rss)) %>
-  <%= pluralize(@topic.posts.count, 'post') %>, <%= pluralize(@topic.voices, 'voice') %>
-</p>
 
 <script type="text/javascript">
   //

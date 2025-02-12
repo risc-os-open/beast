@@ -76,11 +76,19 @@
   </tbody>
 </table>
 
-<p>
-  <%= link_to 'Recent main forum posts',  all_posts_path()                           %> |
-  <%= link_to 'Test and Aldershot posts', all_posts_path(tests_and_aldershot: 'yes') %> |
-  <%= link_to 'Everything',               all_posts_path(everything:          'yes') %>
-</p>
+<div class="simple_flex_row space_between">
+  <p>
+    <%= link_to 'Recent main forum posts',  all_posts_path()                           %> |
+    <%= link_to 'Test and Aldershot posts', all_posts_path(tests_and_aldershot: 'yes') %> |
+    <%= link_to 'Everything',               all_posts_path(everything:          'yes') %>
+  </p>
+
+  <p class="rss">
+    <%= feed_icon_tag "Recent Posts", all_posts_path(format: 'rss') %>
+    <%= number_with_delimiter(Topic.count) %> topics, <%= number_with_delimiter(Post.count) %> posts,
+    <%= number_with_delimiter(User.where('posts_count > 0').count) %> voices
+  </p>
+</div>
 
 <% online_users = User.currently_online %>
 <% unless online_users.empty? %>
@@ -100,9 +108,3 @@
     </div>
   </div>
 <% end %>
-
-<p class="subtitle">
-  <%= feed_icon_tag "Recent Posts", all_posts_path(format: 'rss') %>
-  <%= number_with_delimiter(Topic.count) %> topics, <%= number_with_delimiter(Post.count) %> posts,
-  <%= number_with_delimiter(User.where('posts_count > 0').count) %> voices
-</p>

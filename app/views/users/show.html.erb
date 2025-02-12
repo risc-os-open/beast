@@ -52,7 +52,7 @@
 
 <h1><%= @user.display_name %></h1>
 
-<p class="subtitle">
+<p class="rss">
   <%= feed_icon_tag(@user.display_name, user_posts_path(user_id: @user, format: :rss)) %>
   <span>
     <%= pluralize(@user.topics.count, 'topic') %>,

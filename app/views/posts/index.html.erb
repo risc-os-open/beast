@@ -67,11 +67,11 @@
   <% end %>
 </table>
 
-<% if @pagy.pages > 1 %>
+<div class="simple_flex_row space_between">
   <%= pagy_nav(@pagy).html_safe() %>
-<% end %>
 
-<p class="subtitle">
-  <%= feed_icon_tag(@page_title, search_posts_path(true)) %>
-  <%= pluralize(@pagy.count, 'post') %> found
-</p>
+  <p class="rss">
+    <%= feed_icon_tag(@page_title, search_posts_path(true)) %>
+    <%= pluralize(@pagy.count, 'post') %> found
+  </p>
+</div>

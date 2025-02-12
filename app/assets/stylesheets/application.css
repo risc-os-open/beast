@@ -72,16 +72,33 @@
   margin-left:10em;
 }
 
-#content p.subtitle
+#content .subtitle,
+#content .rss
 {
   font-size:0.75em;
   color:#888;
   font-weight:bold;
+}
+
+#content .subtitle
+{
   margin-bottom:0.75em;
 }
 
-#content p.subtitle img { vertical-align: bottom; }
-#content p.subtitle a { border: none; }
+#content .subtitle img,
+#content .rss      img { vertical-align: bottom; }
+
+#content .subtitle a,
+#content .rss      a { border: none; }
+
+/* Assume layout always wants this floating to the right via e.g. flexbox and
+ * "space-between"; add left-hand margin in case of narrow viewports (without
+ * needing to influence other spacing by using a container-wide gap value).
+ */
+
+#content .simple_flex_row .rss {
+  margin-left: 20px;
+}
 
 #content h1 { margin-bottom: 20px; font-size: 2em; }
 #content h1 img { vertical-align:middle; }
