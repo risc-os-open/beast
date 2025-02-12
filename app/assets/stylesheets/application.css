@@ -101,6 +101,24 @@
   margin-left: 20px;
 }
 
+/* The above floats right when this floats left, but it sometimes has other
+ * things after (e.g. the "New topic") link - so use right margin this time.
+ */
+
+#content .simple_flex_row nav.pagy
+{
+  margin-right: 20px;
+}
+
+@media (max-width: 800px) {
+  #content .simple_flex_row.becomes_column_if_narrow .rss,
+  #content .simple_flex_row.becomes_column_if_narrow nav.pagy
+  {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 #content h1 { margin-bottom: 20px; font-size: 2em; }
 #content h1 img { vertical-align:middle; }
 #content h1 span { font-size:70%; color:#999; font-weight:normal; padding-left: 10px;}

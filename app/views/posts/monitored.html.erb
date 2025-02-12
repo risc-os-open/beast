@@ -10,12 +10,10 @@
   </ul>
 <% end %>
 
-<div class="simple_flex_row with_moderation_info space_between">
+<div class="simple_flex_row with_moderation_info becomes_column_if_narrow space_between">
   <%= pagy_nav(@pagy).html_safe() %>
   <%= render partial: 'shared/ask_a_moderator' %>
 </div>
-
-<%= pagy_nav(@pagy).html_safe() %>
 
 <table border="0" cellspacing="0" cellpadding="0" class="posts wide">
   <% for post in @posts do %>
@@ -56,7 +54,7 @@
   <% end %>
 </table>
 
-<div class="simple_flex_row space_between">
+<div class="simple_flex_row becomes_column_if_narrow space_between">
   <%= pagy_nav(@pagy).html_safe() %>
 
   <p class="rss">
