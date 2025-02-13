@@ -110,7 +110,7 @@
   margin-right: 10px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 860px) {
   #content .simple_flex_row.becomes_column_if_narrow .rss,
   #content .simple_flex_row.becomes_column_if_narrow nav.pagy
   {
@@ -758,7 +758,7 @@
  * Narrower viewports
 \*****************************************************************************/
 
-@media (max-width: 800px)
+@media (max-width: 860px)
 {
   #content table.collapsible .author
   {
