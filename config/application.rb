@@ -16,6 +16,13 @@ Bundler.require(*Rails.groups)
 
 module Beast
   class Application < Rails::Application
+    include HubSsoLib::Core
+
+    hubssolib_register_user_change_handler(
+      app_name:  Rails.application.name,
+      app_root:  Rails.root,
+      task_name: 'hub:update_user'
+    )
 
     # Initialize configuration defaults for originally generated Rails version.
     #

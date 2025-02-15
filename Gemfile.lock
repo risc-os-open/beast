@@ -112,7 +112,7 @@ GEM
     html-pipeline (3.2.2)
       selma (~> 0.4)
       zeitwerk (~> 2.5)
-    hubssolib (3.1.0)
+    hubssolib (3.2.0)
       base64 (~> 0.2)
       drb (~> 2.2)
     i18n (1.14.7)
@@ -310,7 +310,7 @@ DEPENDENCIES
   debug
   foreman
   html-pipeline (~> 3.2)
-  hubssolib (~> 3.1)
+  hubssolib (~> 3.2)
   mailcatcher
   pagy (~> 9.3)
   pg (~> 1.5)
