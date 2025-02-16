@@ -49,9 +49,7 @@
             end
           %>
         </span>
-        <span class="posts">
-          <%= pluralize(user.posts_count, 'post') unless user.id.zero? %>
-        </span>
+        <span class="posts"><%= pluralize(user.posts_count, 'post') unless user.id.zero? %></span>
       </td>
 
       <td class="body">

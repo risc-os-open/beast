@@ -810,4 +810,25 @@
   {
     padding: 0 10px;
   }
+
+  #content tr.post td.author span.fn,
+  #content tr.post td.author span.posts
+  {
+    display: inline;
+  }
+
+  #content tr.post td.author span.posts
+  {
+    padding-left: 0.5em;
+  }
+
+  #content tr.post td.author span.posts:before
+  {
+    content: '(';
+  }
+
+  #content tr.post td.author span.posts:after
+  {
+    content: ')';
+  }
 }
