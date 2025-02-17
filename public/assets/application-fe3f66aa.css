@@ -347,10 +347,17 @@
   background: url("/forum/assets/clearbits/smile-4bad833b.gif") no-repeat 8px 8px;
 }
 
-#content span.fn
+#content tr.post td.author span.fn,
+#content tr.post td.author span.posts
 {
-  display:block;
+  display: inline;
 }
+
+#content tr.post td.author span.posts
+{
+  padding-left: 0.4em;
+}
+
 
 #content div.edit
 {
@@ -545,6 +552,7 @@
 #content table.posts
 {
   border-bottom: 2px solid #eee;
+  width: 100%;
 }
 
 #content table.posts > tbody > tr > td
@@ -565,19 +573,8 @@
   margin-bottom: 10px;
 }
 
-/* fade edit links */
-
-#content .post .author .edit a
-{
-  font-size:0.7em;
-  color:#666;
-}
-
-#content .post .author img
-{
-  float:right;
-  margin:3px 0 5px 10px;
-}
+#content .post .author { width: 25%; }
+#content .post .body   { width: 75%; }
 
 #content .post .author
 {
@@ -585,13 +582,22 @@
   padding: 8px 10px;
   border-top: 2px solid #eee;
   font-size: 100%;
-  font-weight: bold;
   background: #eee;
   color: #333;
-  min-height:32px;
-  min-width: 10em; /* Old browsers */
-  min-width: 15vw; /* Less old browsers */
-  min-width: min(14em, 15vw) /* Newer browsers */
+
+  min-height: 32px;
+  min-width: 12em;
+}
+
+#content .post .author .date
+{
+  font-weight: bold;
+}
+
+#content .post .author img
+{
+  float:right;
+  margin:3px 0 5px 10px;
 }
 
 #content .post .author .posts
@@ -608,14 +614,26 @@
   font-size: 90%;
 }
 
+#content .post .author .edit a
+{
+  font-size:0.7em;
+  color:#666;
+}
+
 #content a.admin,
 #content .post .author a.admin
 {
   font-weight: bold
 }
 
+#content .posts .post .body
+{
+  overflow-wrap: break-word;
+}
+
 #content .posts .post .body pre
 {
+  overflow-wrap: normal;
   white-space: pre-wrap;
 }
 
@@ -809,26 +827,5 @@
   #content .posts .post .body
   {
     padding: 0 10px;
-  }
-
-  #content tr.post td.author span.fn,
-  #content tr.post td.author span.posts
-  {
-    display: inline;
-  }
-
-  #content tr.post td.author span.posts
-  {
-    padding-left: 0.5em;
-  }
-
-  #content tr.post td.author span.posts:before
-  {
-    content: '(';
-  }
-
-  #content tr.post td.author span.posts:after
-  {
-    content: ')';
   }
 }

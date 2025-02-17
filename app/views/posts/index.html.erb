@@ -20,49 +20,16 @@
   <%= render partial: 'shared/ask_a_moderator' %>
 </div>
 
-<table border="0" cellspacing="0" cellpadding="4" class="posts collapsible">
-  <% @posts.each do | post | %>
-    <% user = post.user || missing_user %>
-
-    <% unless post == @posts.first %>
-      <tr class="spacer">
-        <td colspan="2">&nbsp;</td>
-      </tr>
-    <% end %>
-
-    <tr class="post hentry" id="<%= post.dom_id %>">
-      <td class="author">
-        <%= avatar_for(user) %>
-
-        <div class="date">
-          <abbr class="updated" title="<%= post.created_at.xmlschema %>">
-            <%= apphelp_creation_time_in_london(post) %>
-          </abbr>
-        </div>
-
-        <span class="fn">
-          <%=
-            if user.id.zero?
-              user.display_name
-            else
-              apphelp_linked_name(user)
-            end
-          %>
-        </span>
-        <span class="posts"><%= pluralize(user.posts_count, 'post') unless user.id.zero? %></span>
-      </td>
-
-      <td class="body">
-        <p class="topic">
-          Topic: <%= link_to(post.forum.name, forum_path(post.forum_id)) %> /
-          <%= link_to(post.topic.title, forum_topic_path(forum_id: post.forum_id, id: post.topic_id)) %>
-        </p>
-
-        <%= post.body_html.html_safe() %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<%=
+  render(
+    partial: 'shared/posts',
+    locals:  {
+      posts:       @posts,
+      pagy:        @pagy,
+      embed_topic: true
+    }
+  )
+%>
 
 <div class="simple_flex_row becomes_column_if_narrow space_between">
   <%= pagy_nav(@pagy).html_safe() %>
